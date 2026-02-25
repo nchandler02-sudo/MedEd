@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Rhythm &amp; Reason — Master the Beat of Cardiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0e1a;--bg2:#0f172a;--cbg:rgba(255,255,255,0.05);--cbgh:rgba(255,255,255,0.08);--cb:rgba(255,255,255,0.08);--cbh:rgba(255,255,255,0.15);--t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;--bar:linear-gradient(90deg,#06b6d4,#10b981)}
+.light{--bg:#f0f2f5;--bg2:#e8eaed;--cbg:#ffffff;--cbgh:#f8f9fa;--cb:rgba(0,0,0,0.08);--cbh:rgba(0,0,0,0.15);--t1:#1e293b;--t2:#475569;--t3:#94a3b8}
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;transition:all .3s}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:800}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+.light ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15)}
+#root{min-height:100vh}.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.o1{width:600px;height:600px;background:rgba(99,102,241,.15);top:-100px;left:-100px}
+.o2{width:500px;height:500px;background:rgba(168,85,247,.12);bottom:-50px;right:-100px}
+.light .o1{background:rgba(99,102,241,.08)}.light .o2{background:rgba(168,85,247,.06)}
+.wrap{display:flex;min-height:100vh}
+.side{width:280px;height:100vh;position:fixed;left:0;top:0;overflow-y:auto;background:rgba(10,14,26,.85);backdrop-filter:blur(20px);border-right:1px solid var(--cb);z-index:100;display:flex;flex-direction:column;padding:20px 16px;gap:10px;transition:transform .3s}
+.light .side{background:rgba(255,255,255,.92)}
+.main{flex:1;margin-left:280px;padding:24px;min-height:100vh;position:relative;z-index:1}
+.mob{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:rgba(10,14,26,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--cb);z-index:90;padding:0 16px;align-items:center;justify-content:space-between}
+.light .mob{background:rgba(255,255,255,.92)}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}.ov.on{display:block}
+@media(max-width:768px){.side{transform:translateX(-100%);padding-bottom:40px}.side.on{transform:translateX(0)}.main{margin-left:0;padding:72px 16px 24px}.mob{display:flex}.hgrid{grid-template-columns:1fr!important}}
+.slogo h2{font-size:1.4rem;background:linear-gradient(135deg,#e2e8f0,#c7d2fe,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center}
+.light .slogo h2{background:linear-gradient(135deg,#1e293b,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.slogo .tag{font-size:.75rem;color:var(--t3);text-align:center;display:block}
+.sdiv{height:1px;background:var(--cb);margin:2px 0}
+.xpbar{height:20px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid var(--cb)}
+.light .xpbar{background:rgba(0,0,0,.06)}
+.xpfill{height:100%;border-radius:10px;transition:width .5s;background:var(--bar);position:relative}
+.xpfill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:xpsh 2s ease infinite}
+@keyframes xpsh{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.xplbl{font-size:.8rem;color:var(--t2);display:flex;justify-content:space-between}
+.xptxt{font-size:.7rem;color:var(--t3);text-align:center;margin-top:2px}
+.mult{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}
+.minibar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.light .minibar{background:rgba(0,0,0,.06)}
+.minifill{height:100%;border-radius:3px;transition:width .5s}
+.stats{display:flex;gap:12px;justify-content:center;font-size:.85rem;color:var(--t2);font-weight:600}
+.sbtn{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--cb);background:var(--cbg);color:var(--t1);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:8px;transition:all .2s}
+.sbtn:hover{background:var(--cbgh);transform:translateY(-1px)}.sbtn.lk{opacity:.5;cursor:not-allowed}
+.sbtn.ul{border-color:rgba(99,102,241,.4);animation:glow 2s ease infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 5px rgba(99,102,241,.2)}50%{box-shadow:0 0 15px rgba(99,102,241,.4)}}
+.tlist{display:flex;flex-direction:column;gap:2px}
+.titem{padding:8px 10px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--t2);transition:all .15s;border:1px solid transparent}
+.titem:hover{background:var(--cbgh);border-color:var(--cb)}
+.sbot{display:flex;gap:8px}.sbot button{flex:1;padding:8px;border-radius:8px;border:1px solid var(--cb);background:var(--cbg);color:var(--t2);cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif}
+.sbot button:hover{background:var(--cbgh)}
+.ttog{display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 12px;border-radius:20px;cursor:pointer;background:var(--cbg);border:1px solid var(--cb);font-size:.8rem;color:var(--t2)}
+.wwidget{padding:10px;border-radius:10px;background:var(--cbg);border:1px solid var(--cb)}
+.wwidget .wt{font-size:.75rem;color:var(--t3);margin-bottom:4px}
+.wwidget .wn{font-size:.85rem;font-weight:600;margin-bottom:6px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding-bottom:40px}
+.tcard{padding:16px;border-radius:12px;cursor:pointer;background:var(--cbg);border:1px solid var(--cb);transition:all .2s;position:relative;overflow:hidden}
+.tcard:hover{transform:translateY(-3px);background:var(--cbgh);border-color:var(--cbh)}
+.tcard .acc{position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px}
+.tcard .ttl{font-size:.95rem;font-weight:600;margin-bottom:6px;padding-left:12px}
+.tcard .tags{display:flex;flex-wrap:wrap;gap:4px;padding-left:12px}
+.tcard .tg{font-size:.65rem;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,.15);color:#a5b4fc}
+.light .tcard .tg{background:rgba(99,102,241,.1);color:#6366f1}
+.tcard .meta{display:flex;gap:12px;margin-top:8px;padding-left:12px;font-size:.7rem;color:var(--t3)}
+.tcard .comp{position:absolute;top:12px;right:12px;font-size:.85rem}
+.detail{max-width:800px;margin:0 auto}
+.dbk{background:none;border:none;color:var(--t2);cursor:pointer;font-size:.9rem;font-family:'DM Sans',sans-serif;padding:8px 0;display:flex;align-items:center;gap:6px;margin-bottom:16px}
+.dbk:hover{color:var(--t1)}.dtitle{font-size:1.6rem;margin-bottom:8px}
+.dtags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.dtag{font-size:.7rem;padding:3px 10px;border-radius:12px;background:rgba(99,102,241,.15);color:#a5b4fc}
+.light .dtag{background:rgba(99,102,241,.1);color:#6366f1}
+.sec{padding:16px;border-radius:12px;margin-bottom:16px;background:var(--cbg);border:1px solid var(--cb)}
+.sec.panic{border-left:4px solid #ef4444}.sec.overview{border-left:4px solid #6366f1}.sec.icu{border-left:4px solid #f97316}.sec.orders{border-left:4px solid #3b82f6}.sec.cdi{border-left:4px solid #14b8a6}.sec.refs{border-left:4px solid #8b5cf6}
+.sec .shead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sec .stitle{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.sec .sviewed{font-size:.7rem;color:#10b981}
+.sec ul{list-style:none;padding:0}
+.sec li{padding:6px 0;font-size:.85rem;line-height:1.5;color:var(--t2);border-bottom:1px solid rgba(255,255,255,.03)}
+.light .sec li{border-bottom:1px solid rgba(0,0,0,.03)}
+.sec li:last-child{border-bottom:none}
+.hlpill{display:inline;padding:1px 6px;border-radius:6px;background:rgba(99,102,241,.2);color:#a5b4fc;font-weight:500}
+.light .hlpill{background:rgba(99,102,241,.1);color:#6366f1}
+.gltag{display:inline-block;padding:1px 6px;border-radius:6px;margin-right:4px;background:rgba(234,179,8,.15);color:#fbbf24;font-weight:600;font-size:.75rem}
+.light .gltag{background:rgba(234,179,8,.1);color:#b45309}
+.qcard{padding:20px;border-radius:14px;margin-bottom:16px;background:var(--cbg);border:2px solid rgba(99,102,241,.3)}
+.qcard .qlbl{font-size:.75rem;color:#a5b4fc;margin-bottom:8px;font-weight:600}
+.qcard .qstem{font-size:.9rem;line-height:1.6;margin-bottom:16px}
+.qopt{padding:12px 14px;border-radius:10px;cursor:pointer;border:1px solid var(--cb);margin-bottom:8px;font-size:.85rem;color:var(--t2);transition:all .15s;background:var(--cbg)}
+.qopt:hover{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.05)}
+.qopt.ok{border-color:#10b981;background:rgba(16,185,129,.1);color:#10b981}
+.qopt.bad{border-color:#ef4444;background:rgba(239,68,68,.1);color:#ef4444}
+.qopt.dis{pointer-events:none;opacity:.7}
+.qrat{padding:12px;border-radius:10px;margin-top:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);font-size:.82rem;line-height:1.5;color:var(--t2)}
+.mcard{padding:14px;border-radius:12px;cursor:pointer;background:var(--cbg);border:1px solid var(--cb);margin-bottom:10px;transition:all .2s}
+.mcard:hover{border-color:var(--cbh)}
+.mcard .mq{font-size:.85rem;font-weight:500}
+.mcard .ma{margin-top:8px;padding-top:8px;border-top:1px solid var(--cb);font-size:.82rem;color:#10b981}
+.rlink{display:block;padding:8px 12px;border-radius:8px;background:var(--cbg);border:1px solid var(--cb);margin-bottom:6px;font-size:.8rem;color:#818cf8;text-decoration:none;transition:all .15s}
+.rlink:hover{background:var(--cbgh);border-color:rgba(99,102,241,.3)}
+.ascreen{max-width:700px;margin:0 auto;padding:40px 20px}
+.ascreen .ahead{text-align:center;margin-bottom:30px}
+.ascreen .atitle{font-size:1.4rem;margin-bottom:8px}
+.aprog{height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;margin:16px 0 8px}
+.light .aprog{background:rgba(0,0,0,.06)}
+.apfill{height:100%;border-radius:4px;background:var(--bar);transition:width .3s}
+.aqnum{font-size:.8rem;color:var(--t3)}
+.astem{font-size:.95rem;line-height:1.7;margin:20px 0}
+.aopt{padding:14px 16px;border-radius:12px;cursor:pointer;border:2px solid var(--cb);margin-bottom:10px;font-size:.9rem;color:var(--t2);transition:all .15s;background:var(--cbg)}
+.aopt:hover{border-color:rgba(99,102,241,.4)}.aopt.sel{border-color:#6366f1;background:rgba(99,102,241,.1);color:var(--t1)}
+.anxt{display:block;margin:20px auto 0;padding:12px 32px;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;transition:all .2s}
+.anxt:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(99,102,241,.3)}
+.anxt:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.rscreen{max-width:700px;margin:0 auto;padding:40px 20px;text-align:center}
+.rscreen .rscore{font-size:3rem;font-weight:800;margin:20px 0;font-family:'Playfair Display',serif}
+.rscreen .rsub{font-size:1rem;color:var(--t2);margin-bottom:20px}
+.rscreen .rmsg{padding:16px;border-radius:12px;background:var(--cbg);border:1px solid var(--cb);margin-bottom:20px;font-size:.9rem;color:var(--t2);line-height:1.5}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;margin-bottom:4px;background:var(--cbg);font-size:.82rem}
+.rrow .rn{color:var(--t1);text-align:left;flex:1}.rrow .rs{flex-shrink:0;margin-left:8px}
+.csec{padding:16px;border-radius:12px;margin-bottom:16px;background:var(--cbg);border:1px solid var(--cb);text-align:left}
+.csec .cst{font-size:.9rem;font-weight:700;margin-bottom:10px}
+.scomp{display:flex;justify-content:center;align-items:center;gap:20px;font-size:1.8rem;font-weight:800;font-family:'Playfair Display',serif;margin:16px 0}
+.crow{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:6px;margin-bottom:3px;font-size:.8rem}
+.crow.ig{background:rgba(16,185,129,.08)}.crow.gap{background:rgba(245,158,11,.08)}.crow.rg{background:rgba(239,68,68,.08)}
+.fbox{padding:14px;border-radius:10px;margin-top:12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2)}
+.fbox .ft{font-size:.85rem;font-weight:600;color:#f59e0b;margin-bottom:6px}
+.fbox .fi{font-size:.8rem;color:var(--t2);padding:2px 0}
+.obscreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.obcard{max-width:420px;width:100%;padding:40px 32px;border-radius:20px;background:var(--cbg);border:1px solid var(--cb);backdrop-filter:blur(20px);text-align:center}
+.obcard h1{font-size:1.6rem;margin-bottom:4px}
+.obcard .obt{font-size:.85rem;color:var(--t3);margin-bottom:24px}
+.obcard .obw{font-size:.9rem;color:var(--t2);margin-bottom:20px}
+.fg{text-align:left;margin-bottom:16px}.fg label{font-size:.8rem;color:var(--t2);margin-bottom:4px;display:block}
+.finput{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--cb);background:rgba(255,255,255,.05);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none}
+.light .finput{background:rgba(0,0,0,.03)}
+.finput:focus{border-color:#6366f1}
+.fsel{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--cb);background:rgba(15,23,42,.8);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:.9rem;cursor:pointer}
+.light .fsel{background:rgba(255,255,255,.9)}
+.molay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.mocnt{max-width:560px;width:100%;max-height:85vh;overflow-y:auto;padding:28px;border-radius:16px;background:rgba(15,23,42,.98);border:1px solid var(--cb);backdrop-filter:blur(20px)}
+.light .mocnt{background:rgba(255,255,255,.98)}
+.mocls{background:none;border:none;color:var(--t3);cursor:pointer;font-size:1.2rem;float:right;padding:4px}.mocls:hover{color:var(--t1)}
+.motitle{font-size:1.2rem;margin-bottom:16px}
+.mosect{font-size:.85rem;font-weight:600;color:var(--t3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.bitem{padding:10px 6px;border-radius:10px;text-align:center;background:var(--cbg);border:1px solid var(--cb)}
+.bitem.lk{opacity:.4;filter:grayscale(1)}.bitem .be{font-size:1.4rem}.bitem .bn{font-size:.65rem;color:var(--t2);margin-top:4px;line-height:1.2}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.sitem{padding:12px;border-radius:12px;text-align:center;cursor:pointer;background:var(--cbg);border:1px solid var(--cb);transition:all .2s}
+.sitem:hover{background:var(--cbgh);transform:translateY(-2px)}
+.sitem.own{border-color:rgba(16,185,129,.3);opacity:.7}
+.sitem .se{font-size:1.6rem;margin-bottom:4px}.sitem .sn{font-size:.78rem;font-weight:600;margin-bottom:2px}
+.sitem .sd{font-size:.65rem;color:var(--t3);margin-bottom:6px;line-height:1.3}
+.sitem .sp{font-size:.75rem;font-weight:600;color:#fbbf24}.sitem .so{font-size:.7rem;color:#10b981}
+.prhcard{padding:14px 20px;border-radius:12px;background:var(--cbg);border:1px solid var(--cb);margin-bottom:16px;cursor:pointer;transition:all .2s}
+.prhcard:hover{background:var(--cbgh)}
+.pohcard{padding:20px;border-radius:14px;background:var(--cbg);border:2px solid var(--cb);margin-bottom:20px;transition:all .3s}
+.pohcard.ul{border-color:rgba(99,102,241,.5);animation:glow 2s ease infinite}
+.tcontainer{position:fixed;top:20px;right:20px;z-index:300;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 18px;border-radius:10px;background:rgba(15,23,42,.95);border:1px solid var(--cb);border-left:4px solid #6366f1;font-size:.82rem;animation:tin .3s ease;min-width:200px;max-width:320px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.light .toast{background:rgba(255,255,255,.98)}
+.toast.xp{border-left-color:#10b981}.toast.badge{border-left-color:#f59e0b}.toast.level{border-left-color:#a855f7}
+@keyframes tin{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.lscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
+.lbar{width:200px;height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.lfill{height:100%;border-radius:3px;background:var(--bar);transition:width .3s}
+@media(max-width:768px){.ascreen{padding:20px 12px}.obscreen{padding:12px}.obcard{padding:28px 20px}.mocnt{max-height:90vh;padding:20px}.scomp{font-size:1.4rem}}
+@media print{.side,.mob,.tcontainer{display:none}.main{margin-left:0}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+
+<script>
+function parseMD(text,filename){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  if(text.trim().startsWith('<!'))return{id:filename.replace(/\.md$/,''),title:filename.replace(/\.md$/,'').replace(/-/g,' '),tags:[],sections:{},quizzes:[],micros:[],refs:[]};
+  var lines=text.split('\n'),id=filename.replace(/\.md$/,''),title=id.replace(/-/g,' '),tags=[],i,line;
+  var inFM=false,fmEnd=0;
+  for(i=0;i<lines.length;i++){line=lines[i].trim();if(i===0&&line==='---'){inFM=true;continue;}if(inFM&&line==='---'){fmEnd=i+1;break;}if(inFM){if(line.indexOf('title:')===0)title=line.substring(6).trim().replace(/^["']|["']$/g,'');if(line.indexOf('tags:')===0){var tm=line.match(/\[([^\]]*)\]/);if(tm)tags=tm[1].split(',').map(function(t){return t.trim();});}}}
+  for(i=fmEnd;i<lines.length;i++){if(lines[i].trim().indexOf('# ')===0&&lines[i].trim().indexOf('## ')!==0){title=lines[i].trim().substring(2).trim();break;}}
+  var secList=[],cur=null;
+  for(i=fmEnd;i<lines.length;i++){line=lines[i];if(line.trim().indexOf('## ')===0){if(cur)secList.push(cur);cur={heading:line.trim().substring(3).trim(),lines:[]};}else if(cur){cur.lines.push(line);}}
+  if(cur)secList.push(cur);
+  var sections={},quizzes=[],micros=[],refs=[],qIdx=0;
+  for(var s=0;s<secList.length;s++){
+    var sec=secList[s],h=sec.heading.toLowerCase();
+    if(/abim|quiz.*case|style.*case|pitfall/i.test(h)){var q=parseQuiz(sec.lines,id,qIdx);if(q){quizzes.push(q);qIdx++;}}
+    else if(/check.*micro|check.*yourself|micro.*question/i.test(h)){micros=parseMicro(sec.lines,id);}
+    else if(/reference|guideline.*ref/i.test(h)){refs=parseRefs(sec.lines);}
+    else{var key='other';if(/panic/i.test(h))key='panic_card';else if(/brief.*overview|overview/i.test(h))key='brief_overview';else if(/icu|consult.*trigger/i.test(h))key='icu_consult_triggers';else if(/order/i.test(h))key='orders_to_place_now';else if(/cdi/i.test(h))key='cdi';sections[key]=parseBullets(sec.lines);}
+  }
+  return{id:id,title:title,tags:tags,sections:sections,quizzes:quizzes,micros:micros,refs:refs};
+}
+function parseBullets(lines){var r=[];for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(l.indexOf('- ')===0)r.push(l.substring(2));else if(l.length>0&&r.length>0)r[r.length-1]+=' '+l;}return r;}
+function parseRefs(lines){var r=[];for(var i=0;i<lines.length;i++){var l=lines[i].trim();if(l.indexOf('- ')===0)l=l.substring(2);else continue;var parts=l.split(/ [—|] /);if(parts.length>=2){var um=parts[parts.length-1].match(/https?:\/\/[^\s)]+/);r.push({label:parts[0].trim(),url:um?um[0]:''});}else{var um2=l.match(/https?:\/\/[^\s)]+/);r.push({label:l.replace(/https?:\/\/[^\s)]+/,'').trim(),url:um2?um2[0]:''});}}return r;}
+function parseMicro(lines,topicId){var r=[],idx=0;for(var i=0;i<lines.length;i++){var l=lines[i].trim(),qm=l.match(/^-?\s*Q:\s*(.+)/);if(qm){var q=qm[1],a='';for(var j=i+1;j<lines.length;j++){var am=lines[j].trim().match(/^A:\s*(.+)/);if(am){a=am[1];i=j;break;}if(lines[j].trim().match(/^-?\s*Q:/))break;}r.push({id:topicId+'M'+idx,q:q,a:a});idx++;}}return r;}
+function parseQuiz(lines,topicId,qIdx){var sub={},ck='';for(var i=0;i<lines.length;i++){var l=lines[i];if(l.trim().indexOf('### ')===0){ck=l.trim().substring(4).trim().toLowerCase();sub[ck]=[];}else if(ck){sub[ck].push(l);}}if(!sub['stem']&&!sub['options'])return null;var stem=(sub['stem']||[]).filter(function(l){return l.trim().length>0;}).join(' ');var options=[];var ol=sub['options']||[];for(var o=0;o<ol.length;o++){var om=ol[o].trim().match(/^([A-E])\.\s*(.+)/);if(om)options.push(om[0]);}var cl=((sub['correct answer']||sub['correct']||[])[0]||'').trim();var correct=cl.charAt(0);if(!/[A-E]/.test(correct))correct='A';var rat=(sub['rationale']||sub['rationale (2\u20134 sentences)']||sub['rationale (2-4 sentences)']||[]).filter(function(l){return l.trim().length>0;}).join(' ');return{id:topicId+'Q'+qIdx,stem:stem,options:options,correct:correct,rationale:rat};}
+window.parseMD=parseMD;
+</script>
+<script>
+window.PRETEST_DATA={"assessmentType":"pretest","totalQuestions":20,"questions":[{"id":"pre-01","questionNumber":1,"topicSlug":"acute-coronary-syndromes-stemi-nstemi-ua","topicTitle":"Acute Coronary Syndromes (STEMI/NSTEMI/UA)","stem":"A 61-year-old man with hypertension and diabetes presents to the emergency department with 45 minutes of crushing substernal chest pain radiating to his left arm. ECG shows 3 mm ST elevation in leads V1-V4. Blood pressure is 142/88 mmHg, heart rate 96 bpm, SpO2 97% on room air. The hospital has a PCI-capable cath lab with an estimated door-to-device time of 60 minutes. High-sensitivity troponin results are pending. Which of the following is the most appropriate next step?","options":["A. Wait for troponin results before activating the cath lab","B. Administer aspirin 162-325 mg chewed and activate the cath lab for primary PCI immediately","C. Administer fibrinolytic therapy because symptom onset is less than 2 hours","D. Start a heparin infusion and schedule angiography for the following morning","E. Obtain a CT angiogram of the chest to rule out aortic dissection before any intervention"],"correct":"B","rationale":"STEMI requires immediate reperfusion based on ECG criteria; troponin confirmation is not needed before cath lab activation. Primary PCI is preferred when door-to-device time is \u226490 minutes at a PCI-capable center. Aspirin 162-325 mg chewed should be given immediately. Fibrinolysis is reserved for settings where timely PCI cannot be achieved."},{"id":"pre-02","questionNumber":2,"topicSlug":"acute-decompensated-heart-failure-cardiogenic-shock","topicTitle":"Acute Decompensated Heart Failure & Cardiogenic Shock","stem":"A 70-year-old woman with known HFrEF (EF 22%) presents with severe dyspnea and is sitting upright, speaking in short phrases. Vitals: BP 202/110 mmHg, HR 114/min, RR 32/min, SpO2 84% on room air. Lung exam reveals diffuse bilateral rales. ECG shows sinus tachycardia without ST elevation. Which of the following is the most appropriate initial management?","options":["A. IV furosemide 80 mg bolus and reassess in 2 hours","B. Noninvasive positive-pressure ventilation and IV nitroglycerin infusion","C. IV dobutamine infusion for suspected low cardiac output","D. IV morphine 4 mg for dyspnea and anxiety control","E. Emergent intubation without a trial of noninvasive ventilation"],"correct":"B","rationale":"This is hypertensive acute pulmonary edema where the fastest stabilizing measures are NIPPV (to reduce work of breathing and improve oxygenation) combined with IV vasodilator therapy (nitroglycerin) for afterload and preload reduction. Diuretics are important but have slower onset. Dobutamine is reserved for hypotensive, hypoperfused states. IV morphine is no longer recommended due to adverse outcomes."},{"id":"pre-03","questionNumber":3,"topicSlug":"adult-congenital-heart-disease-basics","topicTitle":"Adult Congenital Heart Disease Basics","stem":"A 32-year-old man with a history of Fontan palliation for single-ventricle physiology is admitted for dehydration from gastroenteritis. His baseline SpO2 is 87% on room air. A nurse asks about IV line setup. Which of the following is the most important safety measure when administering IV medications to this patient?","options":["A. Use only central venous access for all medications","B. Use air-eliminating filters and meticulous de-airing of all IV lines","C. Administer all fluids as rapid boluses to maintain preload","D. Increase supplemental oxygen to normalize SpO2 to 99%","E. Avoid all IV fluids because Fontan patients cannot tolerate volume"],"correct":"B","rationale":"Patients with known or suspected intracardiac shunts (including Fontan physiology) are at risk for paradoxical air embolism. Air-eliminating filters and meticulous de-airing of all IV tubing and syringes is a critical bedside safety step to reduce this risk during routine IV care."},{"id":"pre-04","questionNumber":4,"topicSlug":"aortic-disease-aneurysm-dissection-aaa","topicTitle":"Aortic Disease (Aneurysm/Dissection; AAA)","stem":"A 64-year-old man with poorly controlled hypertension presents with sudden severe tearing chest pain radiating to the back. BP is 206/112 mmHg in the right arm and 178/98 mmHg in the left arm. Heart rate is 108 bpm. He is diaphoretic and alert. You strongly suspect acute aortic dissection. Which of the following is the correct sequence for initial medical management?","options":["A. IV nitroglycerin infusion first, then add a beta-blocker if heart rate remains elevated","B. IV esmolol to achieve HR <60 bpm first, then add a vasodilator if SBP remains >120 mmHg","C. IV hydralazine bolus to rapidly reduce blood pressure below 140 mmHg","D. IV nitroprusside alone titrated to SBP 100 mmHg","E. Oral metoprolol 50 mg and recheck blood pressure in 1 hour"],"correct":"B","rationale":"In suspected acute aortic dissection, anti-impulse therapy prioritizes reducing aortic shear by controlling heart rate first with an IV beta-blocker (target HR <60 bpm), then adding a vasodilator to achieve SBP 100-120 mmHg. Vasodilator monotherapy (nitroglycerin, hydralazine, nitroprusside) can provoke reflex tachycardia and worsen dissection propagation."},{"id":"pre-05","questionNumber":5,"topicSlug":"ascvd-risk-assessment-primary-prevention","topicTitle":"ASCVD Risk Assessment & Primary Prevention","stem":"A 54-year-old man with hypertension and smoking history has an LDL-C of 152 mg/dL and a calculated 10-year ASCVD risk of 12%. He has no history of myocardial infarction, stroke, or peripheral artery disease. He asks about medication to prevent a first heart attack. Which of the following is the most appropriate recommendation?","options":["A. High-intensity statin therapy with a goal of \u226550% LDL-C reduction","B. Moderate-intensity statin therapy and lifestyle reinforcement","C. Low-dose aspirin 81 mg daily as the primary intervention","D. Defer all pharmacotherapy because LDL-C is below 190 mg/dL","E. Ezetimibe monotherapy as first-line"],"correct":"B","rationale":"For adults aged 40-75 with LDL-C 70-189 mg/dL and intermediate 10-year ASCVD risk (\u22657.5% to <20%), guidelines support initiating moderate-intensity statin therapy with a goal of \u226530% LDL-C reduction as part of shared decision-making. Aspirin for primary prevention is not routinely recommended and should be used infrequently per current USPSTF guidance."},{"id":"pre-06","questionNumber":6,"topicSlug":"atrial-fibrillation-atrial-flutter","topicTitle":"Atrial Fibrillation & Atrial Flutter","stem":"A 74-year-old man with heart failure with reduced ejection fraction (EF 30%) is admitted for pneumonia. Overnight he develops palpitations. ECG shows atrial fibrillation with a ventricular rate of 148/min. BP is 114/70 mmHg and he is alert without pulmonary edema. Which of the following is the most appropriate initial rate-control agent?","options":["A. IV diltiazem bolus followed by infusion","B. IV metoprolol 5 mg, may repeat","C. IV adenosine 6 mg rapid push","D. IV verapamil 5 mg over 2 minutes","E. Oral digoxin 0.5 mg loading dose"],"correct":"B","rationale":"In patients with known or suspected HFrEF, beta-blockers are preferred for rate control of atrial fibrillation with rapid ventricular response. Non-dihydropyridine calcium channel blockers (diltiazem, verapamil) are generally avoided due to negative inotropy and risk of worsening heart failure. Adenosine does not treat atrial fibrillation."},{"id":"pre-07","questionNumber":7,"topicSlug":"bradyarrhythmias-av-block-pacemakers","topicTitle":"Bradyarrhythmias & AV Block; Pacemakers","stem":"A 68-year-old woman is found confused and hypotensive on the medical floor. Vitals: BP 74/42 mmHg, HR 34/min. Telemetry shows complete heart block with a wide QRS escape rhythm. She has IV access and oxygen is running. Atropine 1 mg IV was given without improvement. Which of the following is the most appropriate next step?","options":["A. Repeat atropine 1 mg IV and observe for 30 minutes","B. Start transcutaneous pacing immediately while arranging transvenous pacing","C. Administer adenosine 6 mg IV rapid push","D. Perform synchronized cardioversion at 100 J","E. Give IV metoprolol to control the ventricular escape rate"],"correct":"B","rationale":"In symptomatic complete heart block with wide QRS escape and hemodynamic compromise unresponsive to atropine, the next step per ACLS bradycardia algorithm is transcutaneous pacing while arranging transvenous pacing and expert consultation. Adenosine, cardioversion, and beta-blockers are inappropriate and potentially harmful in this setting."},{"id":"pre-08","questionNumber":8,"topicSlug":"cardiomyopathies-myocarditis-takotsubo","topicTitle":"Cardiomyopathies & Myocarditis, Takotsubo","stem":"A 30-year-old man presents with pleuritic chest pain and dyspnea 5 days after a febrile viral illness. ECG shows diffuse ST changes not confined to a single coronary territory. High-sensitivity troponin is elevated. He is hemodynamically stable with mildly reduced LVEF on bedside echo. Which of the following is the most appropriate initial approach?","options":["A. Start high-dose IV methylprednisolone immediately for presumed myocarditis","B. Treat as possible ACS while arranging urgent cardiology evaluation to exclude obstructive coronary disease","C. Discharge with NSAIDs and outpatient follow-up","D. Start IV dobutamine to support myocardial function","E. Administer IV thrombolysis based on the ST-segment changes"],"correct":"B","rationale":"Suspected myocarditis can mimic ACS clinically, so obstructive coronary disease should be excluded when indicated. Initial evaluation includes ECG, cardiac biomarkers, and echo, with cardiac MRI as the preferred confirmatory test when stable. High-dose steroids are not routine without a phenotype/biopsy-driven indication, and thrombolysis is inappropriate without confirmed STEMI criteria."},{"id":"pre-09","questionNumber":9,"topicSlug":"chest-pain-evaluation-stable-ischemic-heart-disease","topicTitle":"Chest Pain Evaluation & Stable Ischemic Heart Disease","stem":"A 56-year-old man with hypertension develops brief substernal pressure while walking. The pain resolves with rest. Vitals are stable. ECG shows no acute ischemic changes. Initial high-sensitivity troponin is below the 99th percentile, and a repeat at 2 hours shows no significant delta. He has no known coronary artery disease. Which of the following is the most appropriate next step?","options":["A. Discharge immediately without any follow-up plan","B. Start IV heparin infusion for presumed unstable angina","C. Arrange coronary CT angiography for further risk stratification","D. Proceed to immediate invasive coronary angiography","E. Administer IV alteplase for suspected acute coronary syndrome"],"correct":"C","rationale":"In intermediate-risk acute chest pain with no known CAD and negative serial high-sensitivity troponin without high-risk features, anatomic testing with coronary CT angiography is an appropriate next step for further risk stratification. Heparin, invasive angiography, and thrombolysis are reserved for higher-risk presentations."},{"id":"pre-10","questionNumber":10,"topicSlug":"dyslipidemia-lipid-management","topicTitle":"Dyslipidemia (Lipid Management)","stem":"A 60-year-old man with a history of prior MI 3 years ago is on atorvastatin 80 mg nightly. A fasting lipid panel shows LDL-C 88 mg/dL. He is clinically stable. Which of the following is the most appropriate next step in lipid management?","options":["A. Continue current therapy and recheck lipids in 12 months","B. Add ezetimibe 10 mg daily","C. Switch to simvastatin 80 mg nightly","D. Add fenofibrate for additional LDL lowering","E. Discontinue statin because LDL-C is below 100 mg/dL"],"correct":"B","rationale":"In patients with clinical ASCVD on maximally tolerated high-intensity statin, if LDL-C remains above escalation thresholds (commonly \u226570 mg/dL, and \u226555 mg/dL for very high risk), guidelines recommend adding a nonstatin agent. Ezetimibe is typically the first add-on due to safety, oral dosing, and evidence. Fenofibrate primarily lowers triglycerides, not LDL-C."},{"id":"pre-11","questionNumber":11,"topicSlug":"heart-failure-hfref-hfpef-diagnosis-chronic-management","topicTitle":"Heart Failure (HFrEF/HFpEF): Diagnosis & Chronic Management","stem":"A 64-year-old man with chronic HFrEF (LVEF 28%) is admitted for pneumonia. He is now improving and euvolemic. His medications include lisinopril 20 mg daily, carvedilol 25 mg BID, and furosemide 40 mg daily. Vitals: BP 116/70 mmHg, HR 66/min. Labs: K+ 4.2 mmol/L, creatinine 1.0 mg/dL (eGFR 80). Which medication addition best improves his long-term outcomes before discharge?","options":["A. Dapagliflozin 10 mg daily","B. Verapamil 120 mg daily","C. Increase furosemide to maximum tolerated dose indefinitely","D. Amlodipine 10 mg daily","E. Digoxin 0.25 mg daily"],"correct":"A","rationale":"SGLT2 inhibitors (dapagliflozin, empagliflozin) are recommended foundational therapy for chronic symptomatic HFrEF and can be initiated in stable, euvolemic inpatients to reduce HF hospitalization and cardiovascular events. They are one of the four pillars of GDMT along with ARNI/ACEi/ARB, evidence-based beta-blocker, and MRA. Verapamil is not GDMT for HFrEF."},{"id":"pre-12","questionNumber":12,"topicSlug":"hypertension-hypotension","topicTitle":"Hypertension & Hypotension","stem":"A 62-year-old man admitted for cellulitis has an automated blood pressure reading of 194/108 mmHg overnight. He denies chest pain, dyspnea, headache, or vision changes. Neurologic exam is normal. He rates leg pain as 8/10. Creatinine is unchanged and urine output is normal. Which of the following is the most appropriate next step?","options":["A. Give IV hydralazine 10 mg now","B. Start IV nicardipine infusion and transfer to the ICU","C. Repeat BP with proper technique, treat pain, and resume home oral antihypertensives","D. Order emergent head CT before any intervention","E. Give sublingual nifedipine for rapid BP reduction"],"correct":"C","rationale":"Severe BP without new or worsening target-organ damage is classified as asymptomatic markedly elevated BP and generally does not require IV antihypertensives. Measurement optimization and addressing reversible drivers (pain, anxiety, missed home meds) are prioritized. IV hydralazine and short-acting nifedipine can cause unpredictable overshoot hypotension."},{"id":"pre-13","questionNumber":13,"topicSlug":"infective-endocarditis","topicTitle":"Infective Endocarditis","stem":"A 52-year-old man is admitted overnight with fever, chills, and a new holosystolic murmur at the apex with splinter hemorrhages. He is hemodynamically stable and has not received antibiotics. Infective endocarditis is strongly suspected. Which of the following is the most appropriate next step?","options":["A. Start vancomycin immediately and draw blood cultures afterward","B. Obtain \u22653 sets of blood cultures from separate venipunctures, then start empiric IV antibiotics","C. Delay all antibiotics until TEE confirms vegetations","D. Start oral amoxicillin-clavulanate and reassess in the morning","E. Give a single dose of gentamicin while awaiting culture results"],"correct":"B","rationale":"In stable suspected IE, obtaining \u22653 blood culture sets from separate venipunctures before starting antibiotics maximizes microbiologic diagnosis and enables targeted therapy. Empiric IV antibiotics should follow promptly after cultures. Starting antibiotics before cultures reduces diagnostic yield, and delaying antibiotics until imaging confirmation risks progression."},{"id":"pre-14","questionNumber":14,"topicSlug":"pericardial-disease-pericarditis-tamponade-constriction","topicTitle":"Pericardial Disease (Pericarditis, Tamponade, Constriction)","stem":"A 36-year-old man presents with sharp pleuritic chest pain that improves leaning forward. He is afebrile and hemodynamically stable. ECG shows diffuse concave ST elevations and PR depressions. Troponin is normal. Bedside echo shows a small pericardial effusion without chamber collapse. No immunosuppression or trauma. Which of the following is the most appropriate initial treatment?","options":["A. Ibuprofen 600-800 mg TID plus colchicine","B. Prednisone 60 mg daily as first-line therapy","C. IV heparin for presumed acute coronary syndrome","D. Emergent pericardiocentesis","E. Broad-spectrum IV antibiotics for bacterial pericarditis"],"correct":"A","rationale":"Uncomplicated acute pericarditis without high-risk features is treated with high-dose NSAID (ibuprofen 600-800 mg q8h or aspirin 750-1000 mg q8h) plus colchicine for 3 months to reduce symptoms and recurrence. Glucocorticoids increase recurrence risk when used first-line for idiopathic/viral pericarditis and are reserved for specific indications."},{"id":"pre-15","questionNumber":15,"topicSlug":"peripheral-arterial-disease-acute-limb-ischemia","topicTitle":"Peripheral Arterial Disease & Acute Limb Ischemia","stem":"A 65-year-old man with atrial fibrillation (not on anticoagulation) develops sudden severe pain in his left leg 3 hours ago. The foot is cool and pale with absent dorsalis pedis and posterior tibial pulses by Doppler. He has decreased toe sensation but intact motor strength. Which of the following is the most appropriate immediate action?","options":["A. Start IV unfractionated heparin and urgently consult vascular surgery","B. Start aspirin and schedule an ankle-brachial index for the morning","C. Obtain an MRI of the leg to evaluate for deep venous thrombosis","D. Start low-dose rivaroxaban 2.5 mg BID plus aspirin","E. Apply compression stockings and elevate the limb"],"correct":"A","rationale":"Acute limb ischemia with a threatened limb (sensory changes without motor deficit) requires immediate systemic anticoagulation with IV unfractionated heparin to prevent thrombus propagation, plus urgent vascular surgery consultation for revascularization planning. ABI and chronic PAD medications address chronic disease, not acute limb ischemia."},{"id":"pre-16","questionNumber":16,"topicSlug":"post-mi-care-complications","topicTitle":"Post-MI Care & Complications","stem":"A 63-year-old man is 18 hours post-PCI with a drug-eluting stent for anterior STEMI. He suddenly develops severe chest pressure, diaphoresis, and hypotension (BP 82/50 mmHg). ECG shows new ST elevation in anterior leads compared to his post-PCI tracing. Which of the following is the most appropriate next step?","options":["A. Administer IV furosemide and obtain routine troponin in 6 hours","B. Give sublingual nitroglycerin and observe","C. Activate the cath lab emergently for suspected acute stent thrombosis","D. Start ibuprofen for post-infarction pericarditis","E. Order CT pulmonary angiography for pulmonary embolism"],"correct":"C","rationale":"Sudden recurrent ischemic chest pain with hemodynamic instability and new ST elevation soon after PCI is highly concerning for acute stent thrombosis, which requires immediate reperfusion evaluation with emergent cath lab activation. Delaying for serial biomarkers or alternative imaging risks ongoing myocardial loss."},{"id":"pre-17","questionNumber":17,"topicSlug":"prosthetic-valves-anticoagulation-basics","topicTitle":"Prosthetic Valves & Anticoagulation Basics","stem":"A 58-year-old man with a mechanical bileaflet aortic valve (current-generation) placed 3 years ago has no atrial fibrillation, prior thromboembolism, LV dysfunction, or hypercoagulable disorder. Which of the following is the most appropriate chronic anticoagulation target?","options":["A. INR 1.5-2.0 with low-dose aspirin","B. INR 2.0","C. INR 2.5","D. INR 3.0","E. Apixaban 5 mg BID instead of warfarin"],"correct":"C","rationale":"For a current-generation mechanical bileaflet aortic valve with no additional thromboembolic risk factors, the guideline-directed INR target is 2.5. Lower targets (INR 1.5-2.0) are reserved for select On-X valves \u22653 months post-op. Higher targets (INR 3.0) apply to mechanical mitral valves or additional risk factors. DOACs are contraindicated in mechanical prostheses."},{"id":"pre-18","questionNumber":18,"topicSlug":"supraventricular-tachycardias-svt","topicTitle":"Supraventricular Tachycardias (SVT)","stem":"A 48-year-old woman develops sudden palpitations on the medical floor. She is alert and comfortable. Vitals: HR 188/min, BP 132/78 mmHg, SpO2 98%. ECG shows a regular narrow-complex tachycardia without flutter waves. Modified Valsalva is attempted without conversion. Which of the following is the most appropriate next step?","options":["A. Adenosine 6 mg rapid IV push followed by a saline flush","B. IV digoxin for acute termination","C. IV amiodarone 150 mg over 10 minutes","D. IV furosemide to reduce sympathetic activation","E. Immediate unsedated synchronized cardioversion"],"correct":"A","rationale":"For hemodynamically stable, regular narrow-complex SVT after failed vagal maneuvers, adenosine 6 mg rapid IV push (then 12 mg if needed) is first-line for acute termination per ACC/AHA/HRS SVT guidance. The key to success is rapid push through a proximal IV with immediate saline flush. Cardioversion is reserved for instability or pharmacologic failure."},{"id":"pre-19","questionNumber":19,"topicSlug":"valvular-heart-disease-as-ar-ms-mr-tr","topicTitle":"Valvular Heart Disease (AS/AR/MS/MR/TR)","stem":"A 60-year-old woman with rheumatic heart disease and mitral stenosis (valve area 1.0 cm\u00b2) develops new atrial fibrillation with a ventricular rate of 128/min. She is hemodynamically stable. Her CHA2DS2-VASc score is 1. Which of the following is the most appropriate anticoagulation strategy?","options":["A. Apixaban 5 mg BID","B. Rivaroxaban 20 mg daily","C. Dabigatran 150 mg BID","D. Warfarin with INR goal 2.0-3.0","E. No anticoagulation because CHA2DS2-VASc score is low"],"correct":"D","rationale":"Rheumatic moderate-to-severe mitral stenosis with atrial fibrillation requires anticoagulation with a vitamin K antagonist (warfarin); DOACs are not recommended in this specific setting regardless of CHA2DS2-VASc score. This is one of the key scenarios where the term 'valvular AF' specifically applies."},{"id":"pre-20","questionNumber":20,"topicSlug":"ventricular-arrhythmias-sudden-cardiac-death-icds","topicTitle":"Ventricular Arrhythmias & Sudden Cardiac Death; ICDs","stem":"A 56-year-old woman on methadone and a fluoroquinolone antibiotic develops brief syncope overnight. Telemetry shows recurrent runs of polymorphic ventricular tachycardia with waxing/waning QRS amplitude. ECG reveals QTc of 548 ms. Labs show K+ 3.0 mmol/L and Mg2+ 1.3 mg/dL. BP is 108/68 mmHg between episodes. Which of the following is the most appropriate next step?","options":["A. Start IV amiodarone bolus and infusion","B. Give magnesium sulfate 2 g IV and aggressively replete potassium; discontinue QT-prolonging drugs","C. Administer IV verapamil","D. Start IV procainamide infusion","E. Observe on telemetry since she is normotensive between episodes"],"correct":"B","rationale":"This is torsades de pointes (polymorphic VT with prolonged QTc \u2265500 ms) driven by QT-prolonging medications and electrolyte depletion. First-line therapy is IV magnesium plus aggressive potassium repletion and discontinuation of all QT-prolonging agents. Amiodarone and procainamide are QT-prolonging antiarrhythmics that can worsen torsades."}]};
+window.POSTTEST_DATA={"assessmentType":"posttest","totalQuestions":20,"questions":[{"id":"post-01","questionNumber":1,"topicSlug":"acute-coronary-syndromes-stemi-nstemi-ua","topicTitle":"Acute Coronary Syndromes (STEMI/NSTEMI/UA)","stem":"A 68-year-old man presents with inferior STEMI and ongoing chest pain. He is pale and diaphoretic with BP 82/54 mmHg, HR 50/min, clear lungs, and jugular venous distension. ECG shows ST elevation in leads II, III, aVF. A nurse is preparing sublingual nitroglycerin. Which of the following is the most appropriate immediate action while activating emergent reperfusion?","options":["A. Administer sublingual nitroglycerin 0.4 mg now","B. Give a 500-1000 mL isotonic crystalloid bolus and obtain right-sided ECG leads before nitroglycerin","C. Administer IV furosemide 40 mg for suspected heart failure","D. Give IV metoprolol 5 mg to control bradycardia","E. Start IV morphine 4 mg as first-line therapy for pain"],"correct":"B","rationale":"This presentation (inferior STEMI + hypotension + JVD + clear lungs + bradycardia) strongly suggests right ventricular infarction with preload dependence. Nitroglycerin can precipitate profound hypotension by reducing preload in this setting. Right-sided ECG leads should be obtained to confirm RV involvement, and initial management is cautious volume resuscitation while activating reperfusion. IV furosemide and beta-blockers would worsen hemodynamics."},{"id":"post-02","questionNumber":2,"topicSlug":"acute-decompensated-heart-failure-cardiogenic-shock","topicTitle":"Acute Decompensated Heart Failure & Cardiogenic Shock","stem":"A 74-year-old woman with chronic HFrEF (EF 18%) becomes lethargic and clammy overnight. Vitals: HR 114/min, BP 82/54 mmHg, SpO2 92% on 4 L NC. Labs: lactate 4.8 mmol/L, creatinine 4.1 mg/dL (baseline 1.4). Bedside echo shows severely reduced LV function without tamponade. The intern asks whether to start milrinone. Which of the following is the best management approach?","options":["A. Start milrinone infusion and avoid vasopressors to reduce afterload","B. Give IV nitroglycerin to reduce preload and improve pulmonary congestion","C. Start norepinephrine to maintain MAP \u226565 mmHg, then add dobutamine for low-output physiology","D. Give IV metoprolol to control tachycardia and improve diastolic filling","E. Administer 2 liters of isotonic crystalloid bolus immediately"],"correct":"C","rationale":"This is cardiogenic shock with hypoperfusion (elevated lactate, cool/clammy, borderline MAP, AKI). Initial therapy is vasopressor support with norepinephrine to achieve MAP \u226565 mmHg, then an inotrope (dobutamine) for persistent low-output physiology. The pitfall is choosing milrinone in severe AKI (renally cleared, long half-life, risk of worsening hypotension) or using vasodilators/beta-blockers in active hypoperfusion."},{"id":"post-03","questionNumber":3,"topicSlug":"adult-congenital-heart-disease-basics","topicTitle":"Adult Congenital Heart Disease Basics","stem":"A 33-year-old man with Fontan physiology develops atrial flutter with HR 148/min and BP 120/74 mmHg overnight. He is comfortable and mentating normally. Nursing notes suggest palpitations for 'the last couple of days.' He is not on anticoagulation. ECG confirms atrial flutter. Which of the following is the most appropriate management?","options":["A. Immediate synchronized cardioversion without further evaluation","B. Begin therapeutic anticoagulation and plan cardioversion only after TEE or \u22653 weeks of anticoagulation","C. Give IV diltiazem and discharge from telemetry once HR is controlled","D. Start aspirin alone and schedule elective cardioversion after discharge","E. Administer IV adenosine to terminate the flutter"],"correct":"B","rationale":"When atrial flutter duration is >48 hours or unknown and the patient is hemodynamically stable, cardioversion should be preceded by adequate anticoagulation or a TEE-guided strategy to reduce thromboembolic risk. The critical pitfall is assuming ACHD/Fontan physiology carries lower embolic risk \u2014 in reality, atrial dilation and prior atrial surgery increase thrombosis risk. Rate control alone is insufficient for stroke prevention."},{"id":"post-04","questionNumber":4,"topicSlug":"aortic-disease-aneurysm-dissection-aaa","topicTitle":"Aortic Disease (Aneurysm/Dissection; AAA)","stem":"A 56-year-old woman with severe asthma (recent ICU admission for status asthmaticus) develops abrupt severe interscapular pain. BP is 212/114 mmHg, HR 122 bpm, with diffuse wheezing. CTA is pending for suspected aortic dissection. You need immediate anti-impulse therapy but are concerned about bronchospasm. Which of the following is the most appropriate medication strategy?","options":["A. Start IV esmolol because all beta-blockers are safe in severe asthma","B. Start IV diltiazem for rate control, then add nicardipine to target SBP 100-120 mmHg","C. Give IV hydralazine to rapidly lower systolic blood pressure","D. Treat pain only and defer BP/HR control until CTA confirms dissection","E. Start IV nitroprusside alone for rapid afterload reduction"],"correct":"B","rationale":"When beta-blockers are contraindicated due to active severe bronchospasm, a non-dihydropyridine calcium channel blocker (diltiazem IV) provides rate control to reduce aortic shear, followed by a titratable arterial vasodilator (nicardipine) for BP control. The pitfall is using a vasodilator alone (which increases tachycardia and wall stress) or delaying all hemodynamic management while awaiting imaging confirmation."},{"id":"post-05","questionNumber":5,"topicSlug":"ascvd-risk-assessment-primary-prevention","topicTitle":"ASCVD Risk Assessment & Primary Prevention","stem":"A 50-year-old woman hospitalized for pyelonephritis has LDL-C 134 mg/dL and a 10-year ASCVD risk of 9%. She is a nonsmoker without diabetes. Her father had an MI at age 48. She prefers to avoid long-term medication unless benefit is clear. An outpatient coronary artery calcium (CAC) score from last month was 0. Which of the following is the best recommendation?","options":["A. Start high-intensity statin therapy now given family history","B. Start moderate-intensity statin therapy now","C. Defer statin therapy, emphasize lifestyle, and reassess after recovery","D. Start low-dose aspirin 81 mg daily for primary prevention","E. Start ezetimibe monotherapy"],"correct":"C","rationale":"In borderline-to-intermediate risk adults with uncertainty, coronary artery calcium scoring can refine the statin decision. A CAC score of 0 can justify deferring statin therapy, especially when the patient has strong preferences against medication, while emphasizing lifestyle and follow-up. The pitfall is assuming family history alone mandates immediate statin therapy despite a CAC of 0. Exceptions where CAC 0 should not defer treatment include diabetes or current smoking, which she lacks."},{"id":"post-06","questionNumber":6,"topicSlug":"atrial-fibrillation-atrial-flutter","topicTitle":"Atrial Fibrillation & Atrial Flutter","stem":"A 27-year-old woman with episodic palpitations presents with HR 210/min and BP 118/72 mmHg. She is anxious but alert without chest pain. ECG shows an irregular wide-complex tachycardia with beat-to-beat variability and intermittent delta waves suggesting pre-excitation. Which of the following is the most appropriate pharmacologic intervention?","options":["A. IV diltiazem 0.25 mg/kg bolus","B. IV metoprolol 5 mg","C. IV digoxin 0.5 mg","D. IV procainamide infusion","E. IV adenosine 6 mg rapid push"],"correct":"D","rationale":"This is pre-excited atrial fibrillation (WPW) where AV nodal blockers (diltiazem, metoprolol, digoxin, adenosine) can accelerate conduction over the accessory pathway and precipitate ventricular fibrillation. In a stable patient with pre-excited AF, procainamide is an appropriate pharmacologic choice. If hemodynamic instability develops, proceed to synchronized cardioversion."},{"id":"post-07","questionNumber":7,"topicSlug":"bradyarrhythmias-av-block-pacemakers","topicTitle":"Bradyarrhythmias & AV Block; Pacemakers","stem":"A 62-year-old woman with ESRD on hemodialysis missed her last session. She is somnolent with nausea. Vitals: BP 84/48 mmHg, HR 36/min. ECG shows bradycardia with widened QRS and peaked T waves. Point-of-care glucose is 122 mg/dL. The intern prepares to start transcutaneous pacing. Which of the following is the most important immediate intervention?","options":["A. Give atropine 1 mg IV and repeat every 3-5 minutes","B. Start transcutaneous pacing as the sole immediate intervention","C. Administer IV calcium gluconate immediately for membrane stabilization","D. Give IV amiodarone 150 mg over 10 minutes","E. Observe on telemetry and recheck ECG in 30 minutes"],"correct":"C","rationale":"This is bradyarrhythmia driven by hyperkalemia (missed dialysis + peaked T waves + widened QRS). The immediate life-saving step is membrane stabilization with IV calcium before or alongside rate support and definitive potassium removal. The critical pitfall is treating this as primary AV block and jumping to pacing without correcting the underlying potassium-driven cardiotoxicity, which is the reversible cause."},{"id":"post-08","questionNumber":8,"topicSlug":"cardiomyopathies-myocarditis-takotsubo","topicTitle":"Cardiomyopathies & Myocarditis, Takotsubo","stem":"A 65-year-old woman developed chest pain after a major emotional stressor. Coronary angiography showed no obstructive disease. Overnight she becomes hypotensive (BP 76/44 mmHg) with cool extremities. Bedside echo shows apical akinesis with hyperdynamic basal segments and a dynamic LVOT gradient. The resident plans to start dobutamine. Which of the following is the best immediate strategy?","options":["A. Start dobutamine to improve cardiac output","B. Give IV nitroglycerin and increase diuretics","C. Give cautious IV fluids and start a beta-blocker; use phenylephrine or norepinephrine for BP support if needed","D. Start an intra-aortic balloon pump immediately","E. Start high-dose IV corticosteroids for stress cardiomyopathy"],"correct":"C","rationale":"The critical pitfall in Takotsubo with dynamic LVOT obstruction is that inotropes (dobutamine) and afterload reduction (nitroglycerin) can worsen the obstruction and deepen hypotension. Correct management prioritizes preload support (cautious fluids), rate/contractility control (beta-blocker), and vasoconstriction (phenylephrine/norepinephrine) to maintain systemic perfusion while avoiding agents that increase the dynamic gradient."},{"id":"post-09","questionNumber":9,"topicSlug":"chest-pain-evaluation-stable-ischemic-heart-disease","topicTitle":"Chest Pain Evaluation & Stable Ischemic Heart Disease","stem":"A 70-year-old woman with stage 5 CKD on hemodialysis is admitted for pneumonia. Overnight she reports mild chest tightness while coughing. ECG shows no new ischemic changes. High-sensitivity troponin is elevated above the 99th percentile but is similar to a documented prior value from last month. She is normotensive and oxygenating well. Which of the following is the best approach to avoid a diagnostic pitfall?","options":["A. Diagnose NSTEMI and start heparin immediately","B. Administer IV alteplase because troponin is elevated","C. Trend serial high-sensitivity troponin focusing on rise/fall pattern and repeat ECG","D. Stop all antiplatelet therapy indefinitely","E. Discharge without further evaluation because troponin is chronically elevated"],"correct":"C","rationale":"In advanced CKD, high-sensitivity troponin can be chronically elevated. The critical pitfall is diagnosing acute MI from a single elevated value without evaluating the delta (rise/fall pattern) plus clinical and ECG evidence of ischemia. Serial troponin with repeat ECG and clinical reassessment distinguishes acute MI from chronic myocardial injury or type 2 supply-demand mismatch in systemic illness."},{"id":"post-10","questionNumber":10,"topicSlug":"dyslipidemia-lipid-management","topicTitle":"Dyslipidemia (Lipid Management)","stem":"A 72-year-old woman with chronic coronary disease takes simvastatin 40 mg nightly. She is started on clarithromycin for pneumonia. Two days later she develops diffuse muscle pain and weakness with dark urine. Labs: CK 14,000 U/L, creatinine 2.4 mg/dL (baseline 1.0), K+ 5.9 mmol/L. Which of the following is the best immediate management?","options":["A. Continue simvastatin and add ezetimibe for additional LDL lowering","B. Stop simvastatin and start aggressive IV isotonic fluids with close electrolyte monitoring","C. Reduce simvastatin to 10 mg nightly and continue clarithromycin","D. Switch simvastatin to atorvastatin 80 mg and continue clarithromycin","E. Administer a PCSK9 inhibitor now and continue simvastatin"],"correct":"B","rationale":"This is statin-associated rhabdomyolysis complicated by AKI and hyperkalemia. The immediate priority is stopping the offending statin and treating rhabdomyolysis with aggressive IV fluids and electrolyte monitoring. The key pitfall is the CYP3A4 interaction between clarithromycin and simvastatin, which dramatically increases simvastatin exposure. Continuing or switching within the same interacting regimen is unsafe."},{"id":"post-11","questionNumber":11,"topicSlug":"heart-failure-hfref-hfpef-diagnosis-chronic-management","topicTitle":"Heart Failure (HFrEF/HFpEF): Diagnosis & Chronic Management","stem":"A 72-year-old woman with chronic HFrEF (LVEF 25%) is admitted with mild volume overload that improves with IV diuresis. The day team plans to start spironolactone. Overnight labs: K+ 5.7 mmol/L, creatinine 2.3 mg/dL (eGFR 24 mL/min/1.73 m\u00b2). She is hemodynamically stable (BP 120/72 mmHg). Which of the following is the best next step regarding spironolactone?","options":["A. Start spironolactone 25 mg nightly and recheck potassium in 1 month","B. Start spironolactone 12.5 mg daily without additional monitoring","C. Defer spironolactone and address hyperkalemia and renal dysfunction first","D. Start spironolactone and add routine potassium supplementation","E. Replace spironolactone with verapamil for neurohormonal blockade"],"correct":"C","rationale":"MRAs increase hyperkalemia risk and are generally deferred when K+ is elevated (\u22655.0 mmol/L) and eGFR is markedly reduced (<30 mL/min/1.73 m\u00b2). Starting spironolactone with K+ 5.7 and eGFR 24 risks dangerous hyperkalemia and cardiac arrhythmia. The hyperkalemia and renal dysfunction must be addressed first; if later initiated, potassium and creatinine require close early monitoring."},{"id":"post-12","questionNumber":12,"topicSlug":"hypertension-hypotension","topicTitle":"Hypertension & Hypotension","stem":"A 56-year-old woman presents with sudden severe tearing chest and back pain. BP is 214/118 mmHg in the right arm, 182/104 mmHg in the left. HR is 116 bpm. She is diaphoretic. You suspect acute aortic dissection. Which of the following medication strategies is most appropriate?","options":["A. Start IV nitroprusside and rapidly titrate to SBP 120 mmHg","B. Start IV nicardipine infusion and titrate to SBP 140 mmHg","C. Start IV esmolol, titrate to HR <60 bpm, then add a vasodilator if SBP remains >120 mmHg","D. Give oral clonidine 0.2 mg and reassess in 1 hour","E. Give IV hydralazine boluses until SBP <140 mmHg"],"correct":"C","rationale":"In suspected acute aortic syndrome, anti-impulse therapy requires controlling heart rate first (target HR <60 bpm) with an IV beta-blocker to reduce aortic wall shear stress, then lowering BP (SBP 100-120 mmHg) with additional agents if needed. The critical pitfall is starting vasodilator therapy without beta-blockade, which provokes reflex tachycardia and worsens dissection propagation."},{"id":"post-13","questionNumber":13,"topicSlug":"infective-endocarditis","topicTitle":"Infective Endocarditis","stem":"A 61-year-old woman with fever, a new diastolic murmur, and peripheral stigmata of endocarditis suddenly develops right-sided weakness and aphasia 80 minutes after last known well. Non-contrast head CT shows no hemorrhage. The stroke team is considering IV alteplase. Which of the following is the best next step?","options":["A. Administer IV alteplase immediately because CT shows no hemorrhage","B. Administer IV heparin bolus to prevent further septic emboli","C. Defer thrombolysis, obtain CTA head/neck, and pursue urgent thrombectomy evaluation while initiating IE workup and antibiotics after cultures","D. Give aspirin and delay further evaluation until morning","E. Start high-dose corticosteroids to reduce cerebral edema"],"correct":"C","rationale":"Suspected infective endocarditis is a high-risk context for intracranial hemorrhagic transformation, making systemic thrombolysis potentially dangerous. The best approach is urgent vascular imaging and thrombectomy evaluation when large vessel occlusion is suspected, alongside immediate IE management (cultures, antibiotics, echo). The pitfall is treating this as routine ischemic stroke without accounting for the septic embolic biology and hemorrhage risk."},{"id":"post-14","questionNumber":14,"topicSlug":"pericardial-disease-pericarditis-tamponade-constriction","topicTitle":"Pericardial Disease (Pericarditis, Tamponade, Constriction)","stem":"A 69-year-old woman on apixaban for atrial fibrillation presents with progressive dyspnea and lightheadedness. BP is 84/52 mmHg, HR 120/min, JVP is markedly elevated, and heart sounds are distant. Bedside echo shows a moderate circumferential pericardial effusion with RV diastolic collapse and a plethoric IVC. She is cool and confused. Which of the following is the most appropriate management?","options":["A. Give IV furosemide to reduce venous congestion","B. Start nitroglycerin infusion to reduce preload and afterload","C. Give a cautious IV fluid bolus and start norepinephrine while arranging urgent pericardial drainage","D. Start high-dose ibuprofen and colchicine and observe","E. Delay invasive management until anti-factor Xa level returns"],"correct":"C","rationale":"This is obstructive shock from cardiac tamponade. Temporization with cautious IV fluids to maintain preload and vasopressor support (norepinephrine) is essential while arranging emergent definitive drainage. The critical pitfall is reducing preload with diuretics or nitrates, which worsens tamponade physiology. Drainage should not be delayed for anticoagulant levels in hemodynamically unstable tamponade."},{"id":"post-15","questionNumber":15,"topicSlug":"peripheral-arterial-disease-acute-limb-ischemia","topicTitle":"Peripheral Arterial Disease & Acute Limb Ischemia","stem":"A 70-year-old woman with known PAD presents with 10 hours of worsening right foot pain, numbness, and new weakness in ankle dorsiflexion. The foot is mottled, cool, and pedal pulses are absent by Doppler. She had an intracerebral hemorrhage 5 weeks ago and is neurologically stable. Which of the following is the best approach to restore limb perfusion?","options":["A. Catheter-directed thrombolysis with alteplase","B. Immediate surgical revascularization/embolectomy with vascular surgery","C. Discharge with outpatient vascular follow-up because symptoms are prolonged","D. Start cilostazol and supervised exercise therapy","E. Delay intervention until CTA is obtained in the morning"],"correct":"B","rationale":"This is immediately threatened acute limb ischemia (Rutherford IIb: motor deficit) requiring urgent revascularization. Recent intracerebral hemorrhage is a major contraindication to thrombolysis, making surgical revascularization (embolectomy/bypass) the safer limb-salvage strategy. Delay risks irreversible tissue loss, and chronic PAD treatments (cilostazol, exercise) do not address acute ischemia."},{"id":"post-16","questionNumber":16,"topicSlug":"post-mi-care-complications","topicTitle":"Post-MI Care & Complications","stem":"A 69-year-old woman is day 2 after inferior MI treated medically. She becomes acutely hypotensive (BP 76/44 mmHg) with clear lungs, cool extremities, and jugular venous distension. ECG shows sinus rhythm with inferior Q waves. Bedside echo suggests a dilated RV without pericardial effusion. She received sublingual nitroglycerin 10 minutes ago for chest discomfort. Which of the following is the best immediate management?","options":["A. Start IV nitroglycerin infusion for continued pain","B. Give a cautious isotonic fluid bolus and reassess perfusion","C. Give IV furosemide for presumed left-sided failure","D. Administer IV metoprolol for heart rate control","E. Start noninvasive ventilation for pulmonary edema"],"correct":"B","rationale":"This presentation \u2014 inferior MI + hypotension + JVD + clear lungs + dilated RV \u2014 is classic for right ventricular infarction, where preload dependence makes nitrates dangerous (she just received NTG and crashed). The immediate therapy is cautious fluid resuscitation with close reassessment. Diuretics and further vasodilators would worsen RV preload-dependent physiology."},{"id":"post-17","questionNumber":17,"topicSlug":"prosthetic-valves-anticoagulation-basics","topicTitle":"Prosthetic Valves & Anticoagulation Basics","stem":"A 68-year-old woman with a mechanical mitral valve presents with hematemesis and melena. BP is 84/50 mmHg, HR 124/min. Hemoglobin is 6.8 g/dL and INR is 6.2 on warfarin. She is actively bleeding and requires emergent endoscopy. Which of the following is the best immediate management?","options":["A. Hold warfarin only and repeat INR in 6 hours","B. Give vitamin K 2.5 mg orally and schedule endoscopy for the morning","C. Start IV heparin infusion immediately without reversal","D. Administer 4-factor PCC and vitamin K 10 mg IV while resuscitating and arranging urgent endoscopy","E. Administer aspirin 325 mg and clopidogrel to prevent valve thrombosis"],"correct":"D","rationale":"This is life-threatening major GI bleeding with hemodynamic instability on warfarin. Rapid reversal with 4-factor PCC plus IV vitamin K 10 mg is indicated while simultaneously resuscitating and controlling the bleeding source. The pitfall is under-reversing out of fear of mechanical valve thrombosis \u2014 immediate hemostasis takes priority, with a coordinated plan to restart anticoagulation once bleeding is controlled."},{"id":"post-18","questionNumber":18,"topicSlug":"supraventricular-tachycardias-svt","topicTitle":"Supraventricular Tachycardias (SVT)","stem":"A 30-year-old woman with known Wolff-Parkinson-White syndrome is admitted for pyelonephritis. She develops palpitations with HR 224/min and BP 112/66 mmHg. ECG shows an irregular wide-complex tachycardia with varying QRS morphology. She is alert and in no respiratory distress. A nurse prepares IV diltiazem. Which of the following is the best next step?","options":["A. Administer the prepared IV diltiazem for rate control","B. Administer IV adenosine 12 mg rapid push","C. Administer IV procainamide infusion and prepare for possible cardioversion","D. Administer IV digoxin for ventricular rate control","E. Observe because she is hemodynamically stable"],"correct":"C","rationale":"An irregular wide-complex tachycardia in a patient with known WPW is pre-excited atrial fibrillation. All AV nodal blockers (diltiazem, adenosine, digoxin, beta-blockers) are contraindicated because they can accelerate accessory pathway conduction and precipitate ventricular fibrillation. Procainamide is an appropriate pharmacologic option with cardioversion readiness. The critical pitfall is applying standard AF management to pre-excited AF."},{"id":"post-19","questionNumber":19,"topicSlug":"valvular-heart-disease-as-ar-ms-mr-tr","topicTitle":"Valvular Heart Disease (AS/AR/MS/MR/TR)","stem":"A 72-year-old man with severe degenerative mitral regurgitation (no rheumatic disease, no mechanical valve) is admitted for volume overload. Overnight he develops new atrial fibrillation with HR 118/min. BP is stable. Echo confirms MR without mitral stenosis. The resident asks whether warfarin is required because this is 'valvular AF.' Which anticoagulant is most appropriate for stroke prevention?","options":["A. Warfarin is mandatory because any valve disease with AF requires it","B. No anticoagulation is needed because MR is not a stroke risk factor","C. A DOAC such as apixaban is appropriate since this is native valve regurgitation without rheumatic MS or mechanical valve","D. IV heparin bridge only until the AF converts spontaneously","E. Aspirin 325 mg daily instead of anticoagulation"],"correct":"C","rationale":"For atrial fibrillation with native valve regurgitation (without rheumatic moderate-to-severe mitral stenosis and without a mechanical valve), DOACs are acceptable and preferred by many clinicians. The important pitfall is mislabeling all valve-associated AF as 'valvular AF' requiring warfarin \u2014 that designation specifically applies to rheumatic MS and mechanical valves."},{"id":"post-20","questionNumber":20,"topicSlug":"ventricular-arrhythmias-sudden-cardiac-death-icds","topicTitle":"Ventricular Arrhythmias & Sudden Cardiac Death; ICDs","stem":"A 66-year-old man with ischemic cardiomyopathy (LVEF 26%) and an ICD has received 4 shocks in the past 2 hours. He is alert but anxious and in pain. Telemetry confirms recurrent monomorphic ventricular tachycardia. K+ is 3.8 mmol/L, Mg2+ is 1.8 mg/dL. Troponin is mildly elevated. BP is 98/62 mmHg between episodes. The nurse asks if she should place a magnet over the ICD. Which of the following is the most comprehensive immediate management plan?","options":["A. Place a magnet to stop all shocks and observe on telemetry","B. Place a magnet only if shocks are inappropriate; treat VT with IV amiodarone, replete electrolytes aggressively, provide sedation/analgesia, evaluate for ischemia, and consult EP urgently","C. Deactivate the ICD permanently and start oral amiodarone","D. Administer IV verapamil to suppress VT","E. Discontinue all cardiac medications and transfer to a non-monitored bed"],"correct":"B","rationale":"This is electrical storm (\u22653 VT/VF episodes requiring intervention within 24 hours). Comprehensive management includes: (1) determining if shocks are appropriate (VT confirmed) \u2014 magnet use only if shocks are inappropriate or if needed temporarily to reduce shock-mediated catecholamine storm while antiarrhythmic takes effect, (2) IV amiodarone for scar-related VT, (3) aggressive electrolyte repletion (K+ \u22654.0, Mg2+ \u22652.0), (4) sedation/analgesia to blunt sympathetic tone, (5) ischemia evaluation, and (6) urgent EP consultation. The pitfall is reflexively applying a magnet (which disables shocks but does not treat the arrhythmia) without addressing the VT substrate and triggers."}]};
+</script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+window.onerror=function(msg,src,line,col,err){
+  var d=document.getElementById('root');
+  if(d)d.innerHTML='<div style="padding:40px;color:#ef4444;font-family:monospace;max-width:800px;margin:0 auto"><h2 style="color:#e2e8f0;font-family:sans-serif">⚠️ App Error</h2><pre style="white-space:pre-wrap;margin-top:16px;padding:16px;background:rgba(255,255,255,0.05);border-radius:8px;font-size:13px">'+msg+'\n\nLine: '+line+', Col: '+col+'\n'+(err&&err.stack?err.stack:'')+'</pre></div>';
+  console.error('App error:',msg,src,line,col,err);
+  return false;
+};
+</script>
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback,useMemo}=React;
+const SK='rhythmAndReason';
+const COLORS=["#6366f1","#a855f7","#ec4899","#f97316","#14b8a6","#3b82f6","#8b5cf6","#ef4444","#10b981","#f59e0b"];
+const LEVELS=[{l:1,n:"Murmur Mumbler",x:0},{l:2,n:"Troponin Trainee",x:500},{l:3,n:"Rate Controller",x:1200},{l:4,n:"Stent Deployer",x:2500},{l:5,n:"Valve Whisperer",x:4500},{l:6,n:"Rhythm Wrangler",x:7500},{l:7,n:"Echo Interpreter",x:11500},{l:8,n:"Cath Lab Commander",x:17000},{l:9,n:"EP Sage",x:24000},{l:10,n:"Interventional Immortal",x:35000}];
+const BADGES=[
+  {id:'b-acs',n:'Troponin Tracker',e:'📈',cat:'topic',kw:['acute-coronary','stemi','nstemi']},
+  {id:'b-hf',n:'Shock Jockey',e:'⚡',cat:'topic',kw:['heart-failure','cardiogenic-shock','decompensated']},
+  {id:'b-afib',n:'Rhythm Tamer',e:'💫',cat:'topic',kw:['atrial-fibrillation','flutter']},
+  {id:'b-valves',n:'Valve Virtuoso',e:'🫀',cat:'topic',kw:['valvular','prosthetic-valve']},
+  {id:'b-aorta',n:'Aortic Avenger',e:'🛡️',cat:'topic',kw:['aortic-disease','dissection','aneurysm']},
+  {id:'b-peri',n:'Pericardium Pro',e:'🛡️',cat:'topic',kw:['pericardial','tamponade']},
+  {id:'b-brady',n:'Pacing Pioneer',e:'📟',cat:'topic',kw:['bradyarrhythmia','av-block','pacemaker']},
+  {id:'b-vt',n:'Defib Dominator',e:'⚡',cat:'topic',kw:['ventricular-arrhythmia','sudden-cardiac','icd']},
+  {id:'b-lipid',n:'Statin Strategist',e:'💊',cat:'topic',kw:['dyslipidemia','lipid']},
+  {id:'b-htn',n:'Pressure Pro',e:'🩺',cat:'topic',kw:['hypertension','hypotension']},
+  {id:'b-ie',n:'Endocarditis Expert',e:'🦠',cat:'topic',kw:['infective-endocarditis']},
+  {id:'b-pad',n:'Limb Saver',e:'🦵',cat:'topic',kw:['peripheral-arterial','acute-limb']},
+  {id:'b-s2',n:'2-Day Telemetry',e:'📟',cat:'streak',cond:'s2'},
+  {id:'b-s4',n:'4-Day Marathon',e:'🏃',cat:'streak',cond:'s4'},
+  {id:'b-s8',n:'8-Day Code Team',e:'🚨',cat:'streak',cond:'s8'},
+  {id:'b-q100',n:'Century of Cases',e:'💯',cat:'streak',cond:'q100'},
+  {id:'b-t15',n:'Ward Warrior',e:'🏥',cat:'streak',cond:'t15'},
+  {id:'b-hot',n:'Hot Streak Hero',e:'🔥',cat:'skill',cond:'hot5'},
+  {id:'b-perf',n:'Perfect Score',e:'🌟',cat:'skill',cond:'perfect'},
+  {id:'b-c500',n:'Coin Collector',e:'💰',cat:'secret',cond:'c500'},
+  {id:'b-all',n:'All Topics',e:'👑',cat:'secret',cond:'all20'},
+  {id:'b-assess',n:'Assessment Done',e:'📋',cat:'assessment',cond:'assessed'}
+];
+const SHOP_DATA={
+  avatars:[{id:'a1',n:'Stethoscope Crown',d:'Classic look',p:100,e:'🩺'},{id:'a2',n:'ECG Waveform',d:'Wear your rhythm',p:150,e:'📊'},{id:'a3',n:'Coffee IV',d:'Night float essential',p:200,e:'☕'},{id:'a4',n:'Echo Probe',d:'See through hearts',p:250,e:'🔮'},{id:'a5',n:'Defib Paddles',d:'Shocking personality',p:300,e:'⚡'},{id:'a6',n:'Golden Stent',d:'Ultimate flex',p:500,e:'💛'}],
+  memes:[{id:'m1',n:'Paged at 3AM',d:'Every night',p:80,e:'📟'},{id:'m2',n:'VT or artifact?',d:'The eternal question',p:80,e:'🤔'},{id:'m3',n:'Salt shaker',d:'CHF speedrun',p:100,e:'🧂'},{id:'m4',n:'INR of 9',d:'Warfarin life',p:100,e:'😅'},{id:'m5',n:'One more echo',d:'No one at 2AM',p:120,e:'🫀'},{id:'m6',n:'BB held HR 61',d:'Nursing protocol',p:120,e:'📉'}]
+};
+const WEEKLYS=[{n:"Triple Vessel",d:"Open 3 topics",t:3},{n:"Five-Lead",d:"5 quiz Qs correct",t:5},{n:"20-Q Rounds",d:"Answer 20 Qs",t:20},{n:"Perfect EKG",d:"Perfect quiz",t:1},{n:"Full Code",d:"Complete 1 topic",t:1},{n:"Micro Sprint",d:"Flip 5 micro-Qs",t:5},{n:"XP Marathon",d:"Earn 500 XP",t:500}];
+
+const def=()=>({un:'',pgy:'',obc:false,pre:{done:false,ans:{},sc:0,cq:0,perTopic:{}},post:{done:false,ans:{},sc:0,perTopic:{}},tc:{},xp:0,lv:1,coins:0,clif:0,streak:{c:0,ld:null},badges:[],topO:[],qa:{},mf:[],sv:{},shop:{p:[],eq:{av:null}},hs:{c:0},snd:false,dl:[],wc:{w:null,p:0},theme:'dark',bsd:null});
+function ld(){try{var s=localStorage.getItem(SK);if(s)return{...def(),...JSON.parse(s)};}catch(e){}return def();}
+function sv(s){try{localStorage.setItem(SK,JSON.stringify(s));}catch(e){}}
+function getL(x){for(var i=LEVELS.length-1;i>=0;i--)if(x>=LEVELS[i].x)return LEVELS[i];return LEVELS[0];}
+function getN(x){for(var i=0;i<LEVELS.length;i++)if(x<LEVELS[i].x)return LEVELS[i];return null;}
+function getMult(s){if(s>=8)return 3;if(s>=6)return 2.5;if(s>=4)return 2;if(s>=2)return 1.5;return 1;}
+function getIW(){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+3-(d.getDay()+6)%7);var w=new Date(d.getFullYear(),0,4);return 1+Math.round(((d.getTime()-w.getTime())/86400000-3+(w.getDay()+6)%7)/7);}
+function getWC(){return WEEKLYS[getIW()%7];}
+function renderBT(t){if(!t)return t;t=t.replace(/\*\*Guideline Must[\s\u2011-]Know:\*\*/gi,'<span class="gltag">Guideline</span>');t=t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');t=t.replace(/\{([^}]+)\}/g,'<span class="hlpill">$1</span>');return t;}
+function compTC(tid,st,td){
+  var opened=(st.topO||[]).includes(tid);
+  var svw=(st.sv||{})[tid]||[];
+  var totalSec=td?Object.keys(td.sections||{}).length+(td.refs&&td.refs.length?1:0):0;
+  var qa=st.qa||{};
+  var qAns=0,totalQ=td?(td.quizzes||[]).length:0;
+  for(var i=0;i<totalQ;i++)if(qa[tid+'Q'+i])qAns++;
+  var mFlip=0,totalM=td?(td.micros||[]).length:0;
+  for(var i=0;i<totalM;i++)if((st.mf||[]).includes(tid+'M'+i))mFlip++;
+  var crit=0;if(opened)crit++;if(svw.length>=4)crit++;if(totalQ>0&&qAns>=totalQ)crit++;if(totalM>0&&mFlip>=totalM)crit++;
+  return{opened,svw:svw.length,totalSec,qAns,totalQ,mFlip,totalM,crit,done:crit>=3};
+}
+
+/* ═══ MAIN APP ═══ */
+function App(){
+  const[state,setState]=useState(ld);
+  const[topics,setTopics]=useState([]);
+  const[loading,setLoading]=useState(true);
+  const[lprog,setLprog]=useState(0);
+  const[view,setView]=useState('home');
+  const[selTopic,setSelTopic]=useState(null);
+  const[drawer,setDrawer]=useState(false);
+  const[toasts,setToasts]=useState([]);
+  const[showShop,setShowShop]=useState(false);
+  const[showProfile,setShowProfile]=useState(false);
+
+  useEffect(()=>{sv(state);},[state]);
+  useEffect(()=>{document.body.style.overflow=drawer?'hidden':'';},[drawer]);
+
+  useEffect(()=>{
+    async function load(){
+      try{
+        const res=await fetch('topics/manifest.json');
+        if(!res.ok)throw new Error('No manifest');
+        const data=await res.json();
+        const files=data.topics||data;
+        const loaded=[];
+        for(let i=0;i<files.length;i++){
+          try{const r=await fetch('topics/'+files[i]);if(!r.ok)continue;const txt=await r.text();if(txt.trim().startsWith('<!'))continue;loaded.push(window.parseMD(txt,files[i]));}catch(e){}
+          setLprog(Math.round(((i+1)/files.length)*100));
+        }
+        setTopics(loaded);
+        setState(prev=>{const tc={...prev.tc};loaded.forEach(t=>{tc[t.id]=compTC(t.id,prev,t);});return{...prev,tc};});
+      }catch(e){console.warn('No manifest',e);}
+      setLoading(false);
+    }
+    load();
+  },[]);
+
+  useEffect(()=>{
+    if(loading)return;
+    const today=new Date().toISOString().slice(0,10);
+    setState(prev=>{
+      const dl=[...prev.dl];if(!dl.includes(today))dl.push(today);
+      const last=prev.streak.ld;let c=prev.streak.c;
+      if(last){const diff=Math.floor((new Date(today)-new Date(last))/86400000);if(diff===1)c++;else if(diff>1)c=1;}else c=1;
+      return{...prev,dl,streak:{c,ld:today},bsd:prev.bsd||today};
+    });
+  },[loading]);
+
+  const addToast=useCallback((msg,type='info')=>{
+    const id=Date.now()+Math.random();
+    setToasts(p=>[...p,{id,msg,type}]);
+    setTimeout(()=>setToasts(p=>p.filter(t=>t.id!==id)),3000);
+  },[]);
+
+  const mult=useMemo(()=>getMult(state.streak.c),[state.streak.c]);
+
+  const awardXP=useCallback((base)=>{
+    const total=Math.round(base*mult);
+    setState(prev=>{
+      const nx=prev.xp+total;const ol=getL(prev.xp),nl=getL(nx);
+      let nc=prev.coins+Math.floor(total/10),ncl=prev.clif+Math.floor(total/10);
+      if(nl.l>ol.l){nc+=50;ncl+=50;try{confetti({particleCount:100,spread:70,origin:{y:0.6}})}catch(e){}}
+      return{...prev,xp:nx,lv:nl.l,coins:nc,clif:ncl};
+    });
+    addToast(`+${total} XP${mult>1?' (×'+mult.toFixed(1)+')':''}`,'xp');
+  },[mult,addToast]);
+
+  const checkBadges=useCallback((ns)=>{
+    const earned=[...ns.badges];const nb=[];
+    BADGES.forEach(b=>{
+      if(earned.includes(b.id))return;let u=false;
+      if(b.cat==='topic'){(ns.topO||[]).forEach(tid=>{(b.kw||[]).forEach(kw=>{if(tid.includes(kw))u=true;});});}
+      else if(b.cond==='s2')u=ns.streak.c>=2;
+      else if(b.cond==='s4')u=ns.streak.c>=4;
+      else if(b.cond==='s8')u=ns.streak.c>=8;
+      else if(b.cond==='q100')u=Object.keys(ns.qa||{}).length>=100;
+      else if(b.cond==='t15')u=(ns.topO||[]).length>=15;
+      else if(b.cond==='hot5')u=ns.hs.c>=5;
+      else if(b.cond==='c500')u=ns.clif>=500;
+      else if(b.cond==='all20')u=(ns.topO||[]).length>=20;
+      else if(b.cond==='assessed')u=ns.post&&ns.post.done;
+      if(u){earned.push(b.id);nb.push(b);}
+    });
+    if(nb.length){nb.forEach(b=>addToast(`🏅 ${b.e} ${b.n}`,'badge'));try{confetti({particleCount:50,spread:60})}catch(e){}}
+    return earned;
+  },[addToast]);
+
+  const openTopic=useCallback((topic)=>{
+    setSelTopic(topic);setView('detail');setDrawer(false);
+    setState(prev=>{
+      const opened=[...prev.topO];
+      if(!opened.includes(topic.id)){opened.push(topic.id);setTimeout(()=>awardXP(75),100);}
+      const tc={...prev.tc};tc[topic.id]=compTC(topic.id,{...prev,topO:opened},topic);
+      const ns={...prev,topO:opened,tc};ns.badges=checkBadges(ns);return ns;
+    });
+  },[awardXP,checkBadges]);
+
+  const cl=useMemo(()=>getL(state.xp),[state.xp]);
+  const nl=useMemo(()=>getN(state.xp),[state.xp]);
+  const xpPct=useMemo(()=>nl?((state.xp-cl.x)/(nl.x-cl.x))*100:100,[state.xp,cl,nl]);
+  const compCount=useMemo(()=>Object.values(state.tc).filter(v=>v&&v.done).length,[state.tc]);
+  const eqAv=useMemo(()=>{if(state.shop.eq.av){const it=SHOP_DATA.avatars.find(a=>a.id===state.shop.eq.av);return it?it.e:'❤️';}return'❤️';},[state.shop.eq.av]);
+  const blockDay=useMemo(()=>Math.min(28,Math.max(1,Math.floor((Date.now()-new Date(state.bsd||Date.now()).getTime())/86400000)+1)),[state.bsd]);
+
+  if(loading)return<div style={{minHeight:'100vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:16}}>
+    <h2 style={{fontFamily:'Playfair Display'}}>❤️ Rhythm & Reason</h2>
+    <p style={{color:'var(--t3)',fontSize:'.85rem'}}>Master the Beat of Cardiology</p>
+    <div className="lbar"><div className="lfill" style={{width:lprog+'%'}}/></div>
+    <p style={{color:'var(--t3)',fontSize:'.75rem'}}>Loading... {lprog}%</p>
+  </div>;
+
+  if(!state.obc)return<Onboarding state={state} setState={setState} setView={setView}/>;
+  if(view==='pretest')return<Assessment type="pretest" data={window.PRETEST_DATA} state={state} setState={setState} setView={setView} addToast={addToast}/>;
+  if(view==='pretest-results')return<PretestResults state={state} setView={setView}/>;
+  if(view==='posttest')return<Assessment type="posttest" data={window.POSTTEST_DATA} state={state} setState={setState} setView={setView} addToast={addToast} awardXP={awardXP} checkBadges={checkBadges}/>;
+  if(view==='posttest-results')return<PosttestResults state={state} setView={setView}/>;
+  if(view==='comparison')return<ComparisonView state={state} setView={setView}/>;
+
+  return<div className={`wrap ${state.theme==='light'?'light':''}`}>
+    <div className="tcontainer">{toasts.map(t=><div key={t.id} className={`toast ${t.type}`}>{t.msg}</div>)}</div>
+    <div className="mob">
+      <div style={{display:'flex',alignItems:'center',gap:8}}>
+        <button style={{background:'none',border:'none',color:'var(--t1)',fontSize:'1.4rem',cursor:'pointer'}} onClick={()=>setDrawer(!drawer)}>☰</button>
+        <span style={{fontSize:'.8rem',fontWeight:600}}>{cl.n}</span>
+        {mult>1&&<span className="mult">×{mult.toFixed(1)}</span>}
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:12,fontSize:'.85rem'}}>
+        <span>🪙 {state.coins}</span>
+        <span style={{cursor:'pointer'}} onClick={()=>setState(p=>({...p,theme:p.theme==='dark'?'light':'dark'}))}>{state.theme==='dark'?'🌙':'☀️'}</span>
+      </div>
+    </div>
+    <div className={`ov${drawer?' on':''}`} onClick={()=>setDrawer(false)}/>
+    <div className={`side${drawer?' on':''}`}>
+      <div className="slogo"><h2>❤️ Rhythm & Reason</h2><span className="tag">Master the Beat of Cardiology</span></div>
+      <div style={{fontSize:'.85rem',color:'var(--t2)',textAlign:'center'}}>Welcome, {state.un}!</div>
+      <div className="sdiv"/>
+      <div>
+        <div className="xplbl"><span>{cl.n} (Lv.{cl.l})</span>{mult>1&&<span className="mult">×{mult.toFixed(1)}</span>}</div>
+        <div className="xpbar"><div className="xpfill" style={{width:xpPct+'%'}}/></div>
+        <div className="xptxt">{state.xp} / {nl?nl.x:'MAX'} XP</div>
+      </div>
+      <div style={{display:'flex',gap:8}}>
+        <div style={{flex:1}}><div style={{fontSize:'.75rem',color:'var(--t2)',marginBottom:3}}>Topics {compCount}/20</div><div className="minibar"><div className="minifill" style={{width:(compCount/20*100)+'%',background:'linear-gradient(90deg,#10b981,#06b6d4)'}}/></div></div>
+        <div style={{flex:1}}><div style={{fontSize:'.75rem',color:'var(--t2)',marginBottom:3}}>Day {blockDay}/28</div><div className="minibar"><div className="minifill" style={{width:(blockDay/28*100)+'%',background:'linear-gradient(90deg,#6366f1,#a855f7)'}}/></div></div>
+      </div>
+      <div className="stats"><span>🪙 {state.coins}</span><span>🔥 {state.streak.c}</span><span>{eqAv}</span></div>
+      <div className="sdiv"/>
+      <button className="sbtn" onClick={()=>{setView('home');setDrawer(false);}}>🏠 Home</button>
+      <button className="sbtn" onClick={()=>setShowShop(true)}>🛒 Shop</button>
+      <button className="sbtn" onClick={()=>setShowProfile(true)}>🏅 Profile & Badges</button>
+      {compCount>=16?
+        <button className="sbtn ul" onClick={()=>{if(!state.post.done)setView('posttest');else setView('comparison');setDrawer(false);}}>📝 {state.post.done?'View Comparison':'Take Post-Test'}</button>:
+        <button className="sbtn lk" disabled>🔒 Post-Test ({compCount}/16 topics)</button>}
+      <div className="sdiv"/>
+      <div className="wwidget">
+        <div className="wt">📅 Weekly Challenge</div>
+        <div className="wn">{getWC().n}</div>
+        <div className="minibar"><div className="minifill" style={{width:Math.min(100,(state.wc.p||0)/getWC().t*100)+'%',background:'linear-gradient(90deg,#f59e0b,#ef4444)'}}/></div>
+        <div style={{fontSize:'.65rem',color:'var(--t3)',marginTop:2}}>{Math.min(state.wc.p||0,getWC().t)}/{getWC().t} — {getWC().d}</div>
+      </div>
+      <div className="sdiv"/>
+      <div style={{fontSize:'.75rem',color:'var(--t3)',fontWeight:600}}>TOPICS</div>
+      <div className="tlist">{topics.map(t=>{const tc=state.tc[t.id];const done=tc&&tc.done;return<div key={t.id} className="titem" onClick={()=>openTopic(t)}><span style={{fontSize:'.7rem',flexShrink:0}}>{done?'✅':'⬜'}</span><span style={{flex:1,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{t.title}</span></div>;})}</div>
+      <div className="sdiv"/>
+      <div className="ttog" onClick={()=>setState(p=>({...p,theme:p.theme==='dark'?'light':'dark'}))}>{state.theme==='dark'?'🌙 Dark':'☀️ Light'}</div>
+      <div className="sbot">
+        <button onClick={()=>setState(p=>({...p,snd:!p.snd}))}>{state.snd?'🔊':'🔇'} Sound</button>
+        <button onClick={()=>{if(confirm('Reset all progress?')){localStorage.removeItem(SK);window.location.reload();}}}>🔄 Reset</button>
+      </div>
+    </div>
+    <div className="main">
+      {view==='home'&&<Home state={state} topics={topics} openTopic={openTopic} compCount={compCount} setView={setView}/>}
+      {view==='detail'&&selTopic&&<Detail topic={selTopic} state={state} setState={setState} setView={setView} awardXP={awardXP} addToast={addToast} topics={topics} checkBadges={checkBadges}/>}
+    </div>
+    {showShop&&<ShopModal state={state} setState={setState} onClose={()=>setShowShop(false)} addToast={addToast}/>}
+    {showProfile&&<ProfileModal state={state} onClose={()=>setShowProfile(false)} setView={setView}/>}
+  </div>;
+}
+
+function Onboarding({state,setState,setView}){
+  const[name,setName]=useState('');const[pgy,setPgy]=useState('');
+  return<div className={state.theme==='light'?'light':''}><div className="obscreen"><div className="obcard">
+    <h1 style={{background:'linear-gradient(135deg,#e2e8f0,#c7d2fe,#a78bfa)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>❤️ Rhythm & Reason</h1>
+    <div className="obt">Master the Beat of Cardiology</div>
+    <div className="obw">Welcome! Let's see where you're starting from.</div>
+    <div className="fg"><label>First Name</label><input className="finput" value={name} onChange={e=>setName(e.target.value.slice(0,20))} placeholder="Your name"/></div>
+    <div className="fg"><label>Training Level</label><select className="fsel" value={pgy} onChange={e=>setPgy(e.target.value)}><option value="">Select...</option><option>MS-3</option><option>MS-4</option><option>PGY-1</option><option>PGY-2</option><option>PGY-3</option><option>Fellow</option><option>Attending</option><option>NP/PA</option><option>Other</option></select></div>
+    <button className="anxt" disabled={!name.trim()||!pgy} onClick={()=>{setState(p=>({...p,un:name.trim(),pgy,obc:true,pre:{...p.pre,startedAt:new Date().toISOString()}}));setView('pretest');}}>Begin Pre-Test →</button>
+  </div></div></div>;
+}
+
+function Assessment({type,data,state,setState,setView,addToast,awardXP,checkBadges}){
+  const qs=data.questions;
+  const key=type==='pretest'?'pre':'post';
+  const[ci,setCi]=useState(state[key].cq||0);
+  const[sel,setSel]=useState(null);
+  const ans=useRef({...(state[key].ans||{})});
+  const submit=()=>{
+    if(!sel)return;ans.current[ci]=sel;
+    setState(p=>{const a={...p[key],ans:{...ans.current},cq:ci+1};return{...p,[key]:a};});
+    if(ci<qs.length-1){setCi(ci+1);setSel(null);}
+    else{
+      let sc=0;const perTopic={};
+      qs.forEach((q,i)=>{const correct=ans.current[i]===q.correct;if(correct)sc++;perTopic[q.topicSlug]={correct,userAnswer:ans.current[i],correctAnswer:q.correct};});
+      setState(p=>{
+        const upd={...p[key],done:true,completedAt:new Date().toISOString(),ans:{...ans.current},sc,perTopic,cq:0};
+        const ns={...p,[key]:upd};
+        if(type==='posttest'&&checkBadges){const earned=[...ns.badges];BADGES.forEach(b=>{if(!earned.includes(b.id)&&b.cond==='assessed'&&ns.post&&ns.post.done)earned.push(b.id);});ns.badges=earned;}
+        return ns;
+      });
+      if(type==='posttest'&&awardXP)awardXP(500);
+      setView(type+'-results');
+    }
+  };
+  const q=qs[ci];
+  return<div className={state.theme==='light'?'light':''} style={{minHeight:'100vh'}}><div className="ascreen">
+    <div className="ahead">
+      <h2 className="atitle">{type==='pretest'?'📋 Pre-Test: Baseline':'📝 Post-Test: Final'}</h2>
+      <p style={{color:'var(--t2)',fontSize:'.85rem'}}>{type==='pretest'?'20 ABIM-style questions · No penalty':'20 ABIM-style questions · Show growth'}</p>
+      <div className="aprog"><div className="apfill" style={{width:(ci/qs.length)*100+'%'}}/></div>
+      <div className="aqnum">Question {ci+1} of {qs.length}</div>
+    </div>
+    <div className="astem">{q.stem}</div>
+    {q.options.map((opt,oi)=>{const letter=opt.charAt(0);return<div key={oi} className={`aopt${sel===letter?' sel':''}`} onClick={()=>setSel(letter)}>{opt}</div>;})}
+    <button className="anxt" disabled={!sel} onClick={submit}>{ci<qs.length-1?'Next →':'Finish Assessment'}</button>
+  </div></div>;
+}
+
+function PretestResults({state,setView}){
+  const sc=state.pre.sc;const pct=Math.round(sc/20*100);
+  return<div className={state.theme==='light'?'light':''} style={{minHeight:'100vh'}}><div className="rscreen">
+    <h2>📋 Pre-Test Results</h2>
+    <div className="rscore" style={{color:pct>=70?'#10b981':pct>=50?'#f59e0b':'#ef4444'}}>{sc}/20</div>
+    <div className="rsub">{pct}% — {pct>=80?'Strong foundation!':pct>=60?'Good start!':pct>=40?'Solid baseline!':'Perfect starting point!'}</div>
+    <div className="rmsg">Your pre-test establishes a baseline. Complete topics, then take the post-test to measure growth.</div>
+    {window.PRETEST_DATA.questions.map((q,i)=><div key={i} className="rrow"><span className="rn">{q.topicTitle}</span><span className="rs">{state.pre.ans[i]===q.correct?'✅':'❌'}</span></div>)}
+    <button className="anxt" style={{marginTop:24}} onClick={()=>setView('home')}>Start Learning →</button>
+  </div></div>;
+}
+
+function PosttestResults({state,setView}){
+  const sc=state.post.sc;const pct=Math.round(sc/20*100);
+  return<div className={state.theme==='light'?'light':''} style={{minHeight:'100vh'}}><div className="rscreen">
+    <h2>📝 Post-Test Results</h2>
+    <div className="rscore" style={{color:pct>=70?'#10b981':pct>=50?'#f59e0b':'#ef4444'}}>{sc}/20</div>
+    <div className="rsub">{pct}%</div>
+    {window.POSTTEST_DATA.questions.map((q,i)=><div key={i} className="rrow"><span className="rn">{q.topicTitle}</span><span className="rs">{state.post.ans[i]===q.correct?'✅':'❌'}</span></div>)}
+    <button className="anxt" style={{marginTop:24}} onClick={()=>setView('comparison')}>View Comparison →</button>
+  </div></div>;
+}
+
+function ComparisonView({state,setView}){
+  const preS=state.pre.sc||0,postS=state.post.sc||0,diff=postS-preS;
+  const prePT=state.pre.perTopic||{},postPT=state.post.perTopic||{};
+  const improved=[],maintained=[],gaps=[];
+  window.PRETEST_DATA.questions.forEach(q=>{
+    const slug=q.topicSlug;const preC=(prePT[slug]||{}).correct;const postC=(postPT[slug]||{}).correct;
+    if(!preC&&postC)improved.push(q.topicTitle);else if(preC&&postC)maintained.push(q.topicTitle);else gaps.push(q.topicTitle);
+  });
+  return<div className={state.theme==='light'?'light':''} style={{minHeight:'100vh'}}><div className="rscreen">
+    <h2>📊 Pre vs Post Comparison</h2>
+    <div className="scomp"><span>{preS}/20</span><span style={{fontSize:'1.2rem',color:diff>0?'#10b981':diff===0?'#f59e0b':'#ef4444'}}>→</span><span style={{color:diff>0?'#10b981':diff===0?'#f59e0b':'#ef4444'}}>{postS}/20</span></div>
+    <p style={{color:'var(--t2)',marginBottom:20}}>{diff>0?`+${diff} questions improved! 🎉`:diff===0?'Same score — review focus areas':'Review topics below'}</p>
+    <div className="csec"><div className="cst">Topic-by-Topic</div>
+      {improved.map((t,i)=><div key={'i'+i} className="crow ig"><span style={{flex:1,textAlign:'left'}}>{t}</span><span>❌→✅</span></div>)}
+      {maintained.map((t,i)=><div key={'m'+i} className="crow"><span style={{flex:1,textAlign:'left'}}>{t}</span><span>✅→✅</span></div>)}
+      {gaps.map((t,i)=><div key={'g'+i} className="crow gap"><span style={{flex:1,textAlign:'left'}}>{t}</span><span>⚠️</span></div>)}
+    </div>
+    {gaps.length>0&&<div className="fbox"><div className="ft">📌 Focus Areas</div>{gaps.map((t,i)=><div key={i} className="fi">• {t}</div>)}</div>}
+    <button className="anxt" style={{marginTop:24}} onClick={()=>setView('home')}>← Back to Home</button>
+  </div></div>;
+}
+
+function Home({state,topics,openTopic,compCount,setView}){
+  return<div>
+    <h2 style={{fontSize:'1.4rem',marginBottom:4}}>Your Cardiology Dashboard</h2>
+    <p style={{color:'var(--t2)',fontSize:'.85rem',marginBottom:20}}>{compCount}/20 topics completed · {state.xp} XP earned</p>
+    {state.pre.done&&<div className="prhcard" onClick={()=>setView('pretest-results')}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <span style={{fontSize:'.85rem',color:'var(--t2)'}}>📋 Pre-Test: {state.pre.sc}/20 ({Math.round(state.pre.sc/20*100)}%)</span>
+        <span style={{fontSize:'.75rem',color:'var(--t3)'}}>Details →</span>
+      </div>
+    </div>}
+    <div className={`pohcard${compCount>=16?' ul':''}`}>
+      <div style={{fontSize:'1rem',fontWeight:600,marginBottom:8,display:'flex',alignItems:'center',gap:8}}>{compCount>=16?'📝':'🔒'} Post-Test Assessment</div>
+      <div className="minibar" style={{height:8,marginBottom:4}}><div className="minifill" style={{width:Math.min(100,compCount/16*100)+'%',background:'linear-gradient(90deg,#6366f1,#a855f7)'}}/></div>
+      <div style={{fontSize:'.8rem',color:'var(--t2)'}}>{compCount>=16?(state.post.done?`✅ ${state.post.sc}/20 (${Math.round(state.post.sc/20*100)}%)`:'Unlocked! Take it now.'):`Complete ${Math.max(0,16-compCount)} more topics (${compCount}/16)`}</div>
+      {compCount>=16&&<button className="anxt" style={{marginTop:12,display:'inline-block'}} onClick={()=>setView(state.post.done?'comparison':'posttest')}>{state.post.done?'View Comparison':'Take Post-Test →'}</button>}
+    </div>
+    <h3 style={{fontSize:'1.1rem',marginBottom:12}}>Topics</h3>
+    <div className="hgrid">{topics.map((t,i)=>{const tc=state.tc[t.id];const done=tc&&tc.done;return<div key={t.id} className="tcard" onClick={()=>openTopic(t)}>
+      <div className="acc" style={{background:COLORS[i%COLORS.length]}}/>
+      <div className="ttl">{t.title}</div>
+      <div className="tags">{t.tags.slice(0,3).map((tag,ti)=><span key={ti} className="tg">{tag}</span>)}</div>
+      <div className="meta"><span>{(t.quizzes||[]).length} quiz</span><span>{(t.micros||[]).length} micro</span><span>{Object.keys(t.sections||{}).length} sec</span></div>
+      {done&&<div className="comp">✅</div>}
+    </div>;})}</div>
+  </div>;
+}
+
+function Detail({topic,state,setState,setView,awardXP,addToast,topics,checkBadges}){
+  const[flipped,setFlipped]=useState({});const[quizState,setQuizState]=useState({});
+  const markViewed=(secKey)=>{
+    setState(prev=>{const svw={...prev.sv};const arr=[...(svw[topic.id]||[])];if(!arr.includes(secKey)){arr.push(secKey);awardXP(30);}svw[topic.id]=arr;const tc={...prev.tc};tc[topic.id]=compTC(topic.id,{...prev,sv:svw},topic);return{...prev,sv:svw,tc};});
+  };
+  const answerQuiz=(qid,letter,correct)=>{
+    if(quizState[qid])return;setQuizState(p=>({...p,[qid]:{ans:letter,correct}}));
+    setState(prev=>{const qa={...prev.qa};qa[qid]=letter;let hs={...prev.hs};if(correct){hs.c=(hs.c||0)+1;awardXP(50);}else{hs.c=0;awardXP(15);}const tc={...prev.tc};tc[topic.id]=compTC(topic.id,{...prev,qa},topic);const ns={...prev,qa,hs,tc};ns.badges=checkBadges(ns);return ns;});
+  };
+  const flipMicro=(mid)=>{
+    setFlipped(p=>({...p,[mid]:true}));
+    setState(prev=>{const mf=[...prev.mf];if(!mf.includes(mid)){mf.push(mid);awardXP(20);}const tc={...prev.tc};tc[topic.id]=compTC(topic.id,{...prev,mf},topic);return{...prev,mf,tc};});
+  };
+  const secMap={panic_card:{title:'🚨 Panic Card',cls:'panic'},brief_overview:{title:'📖 Brief Overview',cls:'overview'},icu_consult_triggers:{title:'🏥 ICU/Consult Triggers',cls:'icu'},orders_to_place_now:{title:'📋 Orders to Place Now',cls:'orders'},cdi:{title:'📊 CDI',cls:'cdi'},other:{title:'📝 Additional Notes',cls:'overview'}};
+  const secOrder=['panic_card','brief_overview','icu_consult_triggers','orders_to_place_now','cdi','other'];
+  const viewed=(state.sv||{})[topic.id]||[];
+  return<div className="detail">
+    <button className="dbk" onClick={()=>setView('home')}>← Back to Topics</button>
+    <h2 className="dtitle">{topic.title}</h2>
+    <div className="dtags">{topic.tags.map((t,i)=><span key={i} className="dtag">{t}</span>)}</div>
+    {secOrder.filter(k=>topic.sections[k]&&topic.sections[k].length>0).map(key=>{
+      const info=secMap[key]||{title:key,cls:'overview'};const isV=viewed.includes(key);
+      return<div key={key} className={`sec ${info.cls}`} onClick={()=>{if(!isV)markViewed(key);}}>
+        <div className="shead"><div className="stitle">{info.title}</div>{isV&&<span className="sviewed">✓ Viewed</span>}</div>
+        <ul>{topic.sections[key].map((item,i)=><li key={i} dangerouslySetInnerHTML={{__html:renderBT(item)}}/>)}</ul>
+      </div>;
+    })}
+    {topic.quizzes.map((q,qi)=>{const qs2=quizState[q.id];return<div key={q.id} className="qcard">
+      <div className="qlbl">ABIM-Style Question {qi+1}</div><div className="qstem">{q.stem}</div>
+      {q.options.map((opt,oi)=>{const letter=opt.charAt(0);let cls='qopt';if(qs2){if(letter===q.correct)cls+=' ok';else if(letter===qs2.ans&&!qs2.correct)cls+=' bad';else cls+=' dis';}return<div key={oi} className={cls} onClick={()=>answerQuiz(q.id,letter,letter===q.correct)}>{opt}</div>;})}
+      {qs2&&<div className="qrat"><strong>{qs2.correct?'✅ Correct!':'❌ Incorrect.'}</strong> {q.rationale}</div>}
+    </div>;})}
+    {topic.micros.length>0&&<div><h3 style={{fontSize:'1.1rem',margin:'20px 0 12px'}}>🔬 Micro Questions</h3>
+      {topic.micros.map(m=><div key={m.id} className="mcard" onClick={()=>flipMicro(m.id)}>
+        <div className="mq">Q: {m.q}</div>
+        {(flipped[m.id]||(state.mf||[]).includes(m.id))&&<div className="ma">A: {m.a}</div>}
+      </div>)}</div>}
+    {topic.refs.length>0&&<div style={{marginTop:20}} onClick={()=>markViewed('refs')}>
+      <h3 style={{fontSize:'1.1rem',marginBottom:12}}>📚 References</h3>
+      {topic.refs.map((r,i)=>r.url?<a key={i} className="rlink" href={r.url} target="_blank" rel="noopener noreferrer">{r.label||r.url}</a>:<div key={i} className="rlink">{r.label}</div>)}</div>}
+  </div>;
+}
+
+function ShopModal({state,setState,onClose,addToast}){
+  const buy=(item)=>{if(state.shop.p.includes(item.id))return;if(state.coins<item.p){addToast('Not enough coins!');return;}setState(prev=>({...prev,coins:prev.coins-item.p,shop:{...prev.shop,p:[...prev.shop.p,item.id]}}));addToast(`Purchased ${item.e} ${item.n}`,'badge');};
+  const equip=(id)=>{setState(prev=>({...prev,shop:{...prev.shop,eq:{...prev.shop.eq,av:prev.shop.eq.av===id?null:id}}}));};
+  return<div className="molay" onClick={onClose}><div className="mocnt" onClick={e=>e.stopPropagation()}>
+    <button className="mocls" onClick={onClose}>✕</button>
+    <h3 className="motitle">🛒 Shop — 🪙 {state.coins}</h3>
+    <div style={{marginBottom:16}}><div className="mosect">Avatars</div><div className="sgrid">{SHOP_DATA.avatars.map(item=>{const owned=state.shop.p.includes(item.id);const eq=state.shop.eq.av===item.id;return<div key={item.id} className={`sitem${owned?' own':''}`} onClick={()=>owned?equip(item.id):buy(item)}><div className="se">{item.e}</div><div className="sn">{item.n}</div><div className="sd">{item.d}</div>{owned?<div className="so">{eq?'✅ Equipped':'Tap to equip'}</div>:<div className="sp">🪙 {item.p}</div>}</div>;})}</div></div>
+    <div><div className="mosect">Memes</div><div className="sgrid">{SHOP_DATA.memes.map(item=>{const owned=state.shop.p.includes(item.id);return<div key={item.id} className={`sitem${owned?' own':''}`} onClick={()=>buy(item)}><div className="se">{item.e}</div><div className="sn">{item.n}</div><div className="sd">{item.d}</div>{owned?<div className="so">✅ Owned</div>:<div className="sp">🪙 {item.p}</div>}</div>;})}</div></div>
+  </div></div>;
+}
+
+function ProfileModal({state,onClose,setView}){
+  return<div className="molay" onClick={onClose}><div className="mocnt" onClick={e=>e.stopPropagation()}>
+    <button className="mocls" onClick={onClose}>✕</button>
+    <h3 className="motitle">{state.un}'s Profile</h3>
+    <div style={{fontSize:'.85rem',color:'var(--t2)',marginBottom:16}}>{state.pgy} · Level {getL(state.xp).l} {getL(state.xp).n} · {state.xp} XP · 🪙 {state.coins} · 🔥 {state.streak.c}d streak · {(state.topO||[]).length} topics</div>
+    <div style={{marginBottom:16}}><div className="mosect">Badges ({state.badges.length}/{BADGES.length})</div>
+      <div className="bgrid">{BADGES.map(b=>{const has=state.badges.includes(b.id);return<div key={b.id} className={`bitem${has?'':' lk'}`}><div className="be">{b.e}</div><div className="bn">{has?b.n:'???'}</div></div>;})}</div>
+    </div>
+    {state.post.done&&state.pre.done&&<button className="anxt" onClick={()=>{onClose();setView('comparison');}}>📊 View Comparison</button>}
+  </div></div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
